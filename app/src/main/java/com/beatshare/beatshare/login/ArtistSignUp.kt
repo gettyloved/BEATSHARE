@@ -3,7 +3,7 @@ package com.beatshare.beatshare.login
 //Signup Page for Artist (1)
 
 
-import android.widget.Toast
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.beatshare.beatshare.ArtistSignupData
 import com.beatshare.beatshare.R
 import com.beatshare.beatshare.Screen
 import com.beatshare.beatshare.TheViewModel
@@ -58,13 +59,22 @@ fun ArtistData(
     navController:NavController,
     theViewModel: TheViewModel
 ) {
+    var mFirstNameText by remember{ mutableStateOf("") }
+    var mLastNameText by remember{ mutableStateOf("") }
+    var mUserNameText by  remember{ mutableStateOf("") }
+    var mEmailText by remember{ mutableStateOf("") }
+    var mPassword by remember{ mutableStateOf("") }
+    var mConfirmPassword by remember{ mutableStateOf("") }
+    var isPasswordVisible by remember{ mutableStateOf(false) }
+    var isConfirmPasswordVisible by remember{ mutableStateOf(false) }
+    var isError by remember{ mutableStateOf(false) }
+
     Column(
         verticalArrangement = Arrangement.SpaceEvenly,
-        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .padding(5.dp)
+            .padding(start = 50.dp)
     ) {
 
         val mContext = LocalContext.current
@@ -72,24 +82,27 @@ fun ArtistData(
         Text(
             text = stringResource(R.string.signUp),
             fontSize = 30.sp,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.ExtraBold,
             color = Color.White
         )
 
         Text(
             text = stringResource(R.string.getstarted),
+            fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
             color = Color.White
         )
 
 
         TextField(
-            value = theViewModel.mFirstNameText,
-            onValueChange = {theViewModel.onmFirstNameTextChanged(it)},
+            value = mFirstNameText,
+            onValueChange = {mFirstNameText = it},
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.White,
-                unfocusedIndicatorColor = Color.White
+                unfocusedIndicatorColor = Color.White,
+                textColor = Color.White
             ),
+            maxLines = 1,
             label = {
                 Text(
                     text = stringResource(R.string.first_name),
@@ -102,12 +115,14 @@ fun ArtistData(
         )
 
         TextField(
-            value = theViewModel.mLastNameText,
-            onValueChange = {theViewModel.onmLastNameTextChanged(it)},
+            value = mLastNameText,
+            onValueChange = {mLastNameText = it},
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.White,
-                unfocusedIndicatorColor = Color.White
+                unfocusedIndicatorColor = Color.White,
+                textColor = Color.White
             ),
+            maxLines = 1,
             label = {
                 Text(
                     text = stringResource(R.string.last_name),
@@ -119,12 +134,14 @@ fun ArtistData(
         )
 
         TextField(
-            value = theViewModel.mUserNameText,
-            onValueChange = {theViewModel.onmUserNameTextChanged(it)},
+            value = mUserNameText,
+            onValueChange = {mUserNameText = it},
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.White,
-                unfocusedIndicatorColor = Color.White
+                unfocusedIndicatorColor = Color.White,
+                textColor = Color.White
             ),
+            maxLines = 1,
             label = {
                 Text(
                     text = stringResource(R.string.userName),
@@ -136,12 +153,14 @@ fun ArtistData(
         )
 
         TextField(
-            value = theViewModel.mEmailText,
-            onValueChange = {theViewModel.onmEmailTextChanged(it)},
+            value = mEmailText,
+            onValueChange = {mEmailText = it},
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.White,
-                unfocusedIndicatorColor = Color.White
+                unfocusedIndicatorColor = Color.White,
+                textColor = Color.White
             ),
+            maxLines = 1,
             label = {
                 Text(
                     text = stringResource(R.string.email_address),
@@ -153,11 +172,12 @@ fun ArtistData(
         )
 
         TextField(
-            value = theViewModel.mPassword,
-            onValueChange = {theViewModel.onmPasswordChanged(it)},
+            value = mPassword,
+            onValueChange = {mPassword = it},
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.White,
-                unfocusedIndicatorColor = Color.White
+                unfocusedIndicatorColor = Color.White,
+                textColor = Color.White
             ),
             singleLine = true,
             label = {
@@ -167,11 +187,11 @@ fun ArtistData(
                     modifier = Modifier.padding(5.dp)
                 )},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            visualTransformation = if (theViewModel.isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
-                IconButton(onClick = { theViewModel.isPasswordVisible == !theViewModel.isPasswordVisible }) {
+                IconButton(onClick = { isPasswordVisible == !isPasswordVisible }) {
                     Icon(
-                        imageVector = if(theViewModel.isPasswordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
+                        imageVector = if(isPasswordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
                         contentDescription = null
                     )
                 }
@@ -179,12 +199,14 @@ fun ArtistData(
         )
 
         TextField(
-            value = theViewModel.mConfirmPassword,
-            onValueChange = {theViewModel.onmConfirmPasswordChanged(it)},
+            value = mConfirmPassword,
+            onValueChange = {mConfirmPassword = it},
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.White,
-                unfocusedIndicatorColor = Color.White
+                unfocusedIndicatorColor = Color.White,
+                textColor = Color.White
             ),
+            maxLines = 1,
             label = {
                 Text(
                     text = stringResource(R.string.confirm_password),
@@ -192,24 +214,32 @@ fun ArtistData(
                     modifier = Modifier.padding(5.dp)
                 )},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-            visualTransformation = if(theViewModel.isConfirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            visualTransformation = if(isConfirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
-                IconButton(onClick = { theViewModel.isConfirmPasswordVisible == !theViewModel.isConfirmPasswordVisible }) {
+                IconButton(onClick = { isConfirmPasswordVisible == !isConfirmPasswordVisible }) {
                     Icon(
-                        imageVector = if (theViewModel.isConfirmPasswordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
+                        imageVector = if (isConfirmPasswordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
                         contentDescription = null
                     )
                 }
-            }
+            },
+            isError = isError
         )
+        if(mPassword != mConfirmPassword){
+            isError = true
+            Text(text = "Required", color = Color.White)
+        }
 
         Button(
             onClick = {
-                    navController.navigate(Screen.ArtistSignUpCont.route)
+                val artistSignupData = ArtistSignupData(mFirstNameText,mLastNameText,mUserNameText,mEmailText)
+                theViewModel.setArtistSignUpDetails(artistSignupData)
+                navController.navigate(route = Screen.ArtistSignUpCont.route)
+                
             },
-            enabled = theViewModel.mFirstNameText.isNotBlank() && theViewModel.mLastNameText.isNotBlank()
-                    && theViewModel.mEmailText.isNotBlank() && theViewModel.mUserNameText.isNotBlank()
-                    && theViewModel.mPassword.isNotBlank() && theViewModel.mConfirmPassword.isNotBlank(),
+            enabled = mFirstNameText.isNotBlank() && mLastNameText.isNotBlank()
+                    && mEmailText.isNotBlank() && mUserNameText.isNotBlank()
+                    && mPassword.isNotBlank() && mConfirmPassword.isNotBlank(),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
             modifier = Modifier.padding(start = 30.dp,end = 30.dp, top = 10.dp, bottom = 10.dp)
         ) {
@@ -229,8 +259,7 @@ fun ArtistData(
                     painter = painterResource(id = R.drawable.ic_baseline_arrow_forward_24),
                     contentDescription = "",
                     modifier = Modifier
-                        .background(Color.Black)
-                        .clip(CircleShape)
+                        .padding(start = 10.dp)
                 )
             }
         }
@@ -244,18 +273,16 @@ fun ArtistData(
                     checkmarkColor = Color.White
                 )
             )
-            Row(){
+            Row(verticalAlignment = Alignment.CenterVertically){
                 Text(text = stringResource(R.string.agree_with), fontSize = 20.sp,color = Color.White)
                 TextButton(onClick = { }) {
                     Text(text = stringResource(R.string.terms_conditions), fontSize = 20.sp,color = Color.White)
                 }
             }
         }
-        Row(horizontalArrangement = Arrangement.Center) {
-            TextButton(onClick = {  }) {
-                Text(text = stringResource(R.string.anAccount), fontSize = 20.sp,color = Color.White)
-            }
-            TextButton(onClick = {  }) {
+        Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+            Text(text = stringResource(R.string.anAccount), fontSize = 20.sp,color = Color.White)
+            TextButton(onClick = { navController.navigate(Screen.LogIn.route) }) {
                 Text(text = stringResource(R.string.login), fontSize = 20.sp,color = Color.White)
             }
         }

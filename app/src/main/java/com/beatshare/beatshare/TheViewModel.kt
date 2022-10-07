@@ -1,50 +1,32 @@
 package com.beatshare.beatshare
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 
 class TheViewModel: ViewModel() {
-//    state
-    var mFirstNameText by mutableStateOf("")
-    var mLastNameText by mutableStateOf("")
-    var mUserNameText by  mutableStateOf("")
-    var mEmailText by mutableStateOf("")
-    var mPassword by mutableStateOf("")
-    var mConfirmPassword by mutableStateOf("")
-    var isPasswordVisible by mutableStateOf(false)
-    var isConfirmPasswordVisible by mutableStateOf(false)
+//    MUTABLESTATEfLOW
+   private val _artistSignupData = MutableStateFlow<ArtistSignupData>(ArtistSignupData.EMPTY)
+   private val _artistsSignupContData = MutableStateFlow<ArtistSignupContData>(ArtistSignupContData.EMPTY)
 
-    var pFirstNameText by mutableStateOf("")
-    var pLastNameText by mutableStateOf("")
-    var pUserNameText by  mutableStateOf("")
-    var pEmailText by mutableStateOf("")
-    var pPassword by mutableStateOf("")
-    var pConfirmPassword by mutableStateOf("")
-    var ispPasswordVisible by mutableStateOf(false)
-    var ispConfirmPasswordVisible by mutableStateOf(false)
+//    STATEFLOW
+   val artistSignupData : StateFlow<ArtistSignupData> get() =_artistSignupData
+   val artistSignupContData: StateFlow<ArtistSignupContData> get() = _artistsSignupContData
 
-    var mCountry by mutableStateOf("")
-    var mCity by mutableStateOf("")
-    var mZip by mutableStateOf("")
+//   FUNCTIONS
+    fun setArtistSignUpDetails (artistSignupData: ArtistSignupData){
+        _artistSignupData.update {
+            it.copy(firstName = artistSignupData.firstName, lastName = artistSignupData.lastName,
+                userName = artistSignupData.userName, email = artistSignupData.email
+                )
+        }
+    }
 
-//    events
-    fun onmFirstNameTextChanged(newString: String){mFirstNameText = newString}
-    fun onmLastNameTextChanged(newString: String){mLastNameText = newString}
-    fun onmUserNameTextChanged(newString: String){mUserNameText = newString}
-    fun onmEmailTextChanged(newString: String){mEmailText = newString}
-    fun onmPasswordChanged(newString: String){mPassword = newString}
-    fun onmConfirmPasswordChanged(newString: String){mConfirmPassword = newString}
-
-    fun onpFirstNameTextChanged(newString: String){pFirstNameText = newString}
-    fun onpLastNameTextChanged(newString: String){pLastNameText = newString}
-    fun onpUserNameTextChanged(newString: String){pUserNameText = newString}
-    fun onpEmailTextChanged(newString: String){pEmailText = newString}
-    fun onpPasswordChanged(newString: String){pPassword = newString}
-    fun onpConfirmPasswordChanged(newString: String){pConfirmPassword = newString}
-
-    fun onmCountryTextChanged(newString: String){mCountry = newString}
-    fun onmCityTextChanged(newString: String){mCity = newString}
-    fun onmZipTextChanged(newString: String){mZip = newString}
+    fun setArtistContSignupDetails(artistSignupContData: ArtistSignupContData){
+        _artistsSignupContData.update{
+            it.copy(country = artistSignupContData.country, city = artistSignupContData.city,
+                zip = artistSignupContData.zip)
+        }
+    }
 }

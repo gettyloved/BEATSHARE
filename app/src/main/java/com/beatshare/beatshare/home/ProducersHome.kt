@@ -6,6 +6,7 @@ package com.beatshare.beatshare.home
 // Scrollable to down.
 
 
+
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -14,6 +15,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -91,16 +93,16 @@ fun ProducersHome(navController: NavController){
             instrumental(
                 instrument = listOf(
                     Instrumental(
-                        "Cows"
+                        "Drums"
                     ),
                     Instrumental(
-                        "Goats"
+                        "Guiter"
                     ),
                     Instrumental(
-                        "Hen"
+                        "Piano"
                     ),
                     Instrumental(
-                        "Sheep"
+                        "Flute"
                     )
                 )
             )
@@ -121,16 +123,18 @@ fun heading() {
         Text(
             text = stringResource(R.string.home),
             color = Color.White,
-            fontSize = 30.sp,
-            fontWeight = FontWeight.Bold
+            fontSize = 40.sp,
+            fontWeight = FontWeight.ExtraBold
         )
-        Image(
-            painter = painterResource(id = R.drawable.logo),
-            contentDescription = null,
-            modifier = Modifier
-                .clip(CircleShape)
-                .size(50.dp)
-        )
+        IconButton(onClick = { Screen.ProducersProfile.route }) {
+            Image(
+                painter = painterResource(id = R.drawable.person1),
+                contentDescription = null,
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .size(50.dp)
+            )
+        }
     }
 }
 
@@ -172,7 +176,7 @@ fun exploreView(exploreItems: ExploreItems) {
             color = Color.White,
             modifier = Modifier
                 .align(Alignment.CenterStart)
-                .padding(5.dp)
+                .padding(start = 10.dp)
         )
     }
 }
@@ -214,7 +218,7 @@ fun editorView(editorItem: EditorsItems) {
             color = Color.White,
             modifier = Modifier
                 .align(Alignment.CenterStart)
-                .padding(5.dp)
+                .padding(10.dp)
         )
     }
 }
@@ -258,7 +262,7 @@ fun instrumentalView(instruments: Instrumental) {
             color = Color.White,
             modifier = Modifier
                 .align(Alignment.CenterStart)
-                .padding(5.dp)
+                .padding(10.dp)
         )
     }
 }

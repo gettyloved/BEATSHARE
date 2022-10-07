@@ -4,15 +4,19 @@ package com.beatshare.beatshare.home
 
 
 
+import android.widget.ImageButton
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,12 +33,14 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.beatshare.beatshare.EditorsItems
 import com.beatshare.beatshare.ExploreItems
+import com.beatshare.beatshare.Galore
 import com.beatshare.beatshare.R
 import com.beatshare.beatshare.ui.theme.BeatshareTheme
 
 @ExperimentalFoundationApi
 @Composable
 fun ArtistsHome(navController: NavController){
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -88,7 +94,19 @@ fun ArtistsHome(navController: NavController){
                     )
                 )
             )
-            footer()
+            footer(
+                navController = navController,
+                galore = listOf(
+                    Galore("hiphop"),
+                    Galore("rock"),
+                    Galore("amapiano"),
+                    Galore("regge"),
+                    Galore("ragga"),
+                    Galore("Bongo"),
+                    Galore("Sol"),
+                    Galore("Zilizopendwa"),
+                )
+            )
         }
     }
 }
@@ -106,16 +124,18 @@ fun header() {
         Text(
             text = stringResource(R.string.home),
             color = Color.White,
-            fontSize = 30.sp,
-            fontWeight = FontWeight.Bold
+            fontSize = 50.sp,
+            fontWeight = FontWeight.ExtraBold
         )
-        Image(
-            painter = painterResource(id = R.drawable.logo),
-            contentDescription = null,
-            modifier = Modifier
-                .clip(CircleShape)
-                .size(50.dp)
-        )
+        IconButton(onClick = {  }) {
+            Icon(
+                painter = painterResource(id = R.drawable.person1),
+                contentDescription = null,
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .size(50.dp)
+            )
+        }
     }
 }
 
@@ -126,6 +146,7 @@ fun Aexplore(explored: List<ExploreItems>){
         Text(
             text = stringResource(R.string.collection_beats),
             color = Color.White,
+            fontWeight = FontWeight.Bold,
             fontSize = 30.sp,
             modifier = Modifier.padding(start = 10.dp)
         )
@@ -170,6 +191,7 @@ fun Aeditor(editorsItems: List<EditorsItems>) {
         Text(
             text = stringResource(R.string.editorsPicks),
             color = Color.White,
+            fontWeight = FontWeight.Bold,
             fontSize = 30.sp,
             modifier = Modifier.padding(start = 10.dp)
         )
@@ -208,38 +230,51 @@ fun AeditorView(editorItem: EditorsItems) {
 
 
 @Composable
-fun footer(){
+fun footer(
+    navController: NavController,
+    galore:List<Galore>
+){
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(20.dp)
     ) {
         Text(
-            text = stringResource(R.string.submit_beats_instrumentation),
+            text = stringResource(R.string.insrumentalGalore),
             color = Color.White,
-            fontSize = 25.sp
+            fontWeight = FontWeight.Bold,
+            fontSize = 30.sp,
+            modifier = Modifier.padding(start = 10.dp)
         )
-        Button(
-            onClick = {  },
-            modifier = Modifier
-                .padding(top = 25.dp)
-                .fillMaxWidth()
-        ) {
-            Text(
-                text = stringResource(R.string.submit),
-                color = Color.Blue,
-                modifier = Modifier.padding(start = 30.dp, top = 5.dp, bottom = 5.dp, end = 30.dp)
-            )
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(3),
+            contentPadding = PaddingValues(10.dp)
+        ){
+            items(galore.size){
+                AeditorGalore(galore = galore[it])
+            }
         }
     }
 }
 
-
-
-
-
-
+@Composable
+fun AeditorGalore(galore: Galore) {
+    BoxWithConstraints(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(10.dp)
+            .background(Color.Magenta)
+            .clip(RoundedCornerShape(10.dp))
+            .size(80.dp)
+    ) {
+        Text(
+            text = galore.title,
+            color = Color.White,
+            modifier = Modifier
+                .align(Alignment.CenterStart)
+                .padding(5.dp)
+        )
+    }
+}
 
 
 @ExperimentalFoundationApi

@@ -9,6 +9,7 @@ android {
     defaultConfig {
         applicationId "com.beatshare.beatshare"
 //        minSdkPreview 28
+        minSdk 28
         targetSdk 32
         versionCode 1
         versionName  "1.0"
@@ -17,7 +18,6 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
-        minSdk 28
     }
 
     buildTypes {
@@ -68,4 +68,7 @@ dependencies {
     def nav_compose_version = "1.0.0-alpha01"
     implementation "androidx.navigation:navigation-compose:2.5.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0-alpha01"
+    implementation "com.google.accompanist:accompanist-pager:0.25.0" // Pager
+    implementation "com.google.accompanist:accompanist-pager-indicators:0.25.0" // Pager Indicators
+
 }

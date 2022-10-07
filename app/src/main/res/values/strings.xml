@@ -5,8 +5,8 @@
     <string name="userType">User Type</string>
     <string name="artist">Artist</string>
     <string name="email">Email</string>
-    <string name="beforeWeStart">Before we start...</string>
-    <string name="youWantToRegisterAs">\"Select an option of how you want to register to use BeatShare as: \"</string>
+    <string name="beforeWeStart">Before we\nstart...</string>
+    <string name="youWantToRegisterAs">Select an option of how\nyou want to register to\nuse BeatShare as: </string>
     <string name="anArtist">AN ARTIST</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
@@ -15,7 +15,7 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="next">Next</string>
-    <string name="agree_with">\"I agree with \"</string>
+    <string name="agree_with">I agree with</string>
     <string name="terms_conditions">Terms and Conditions</string>
     <string name="anAccount">Already have an account?</string>
     <string name="login">Login</string>
@@ -44,10 +44,10 @@
     <string name="socialAccounts">Connect to your social accounts</string>
     <string name="back">Back</string>
     <string name="finish">FINISH</string>
-    <string name="explore_create">For exploring beats and creating music</string>
+    <string name="explore_create">For exploring beats and creating\nmusic</string>
     <string name="or">OR</string>
-    <string name="producer">A Producer</string>
-    <string name="publishingBeats">For publishing your beats and making sounds</string>
+    <string name="producer">A PRODUCER</string>
+    <string name="publishingBeats">For publishing your beats and making\nsounds</string>
     <string name="login_guest">LOGIN AS GUEST</string>
     <string name="forgotPassword">Forgot Password?</string>
     <string name="welcome_beatshare">WELCOME TO BEATSHARE</string>
@@ -66,4 +66,15 @@
     <string name="choose_notifications">Choose which notifications to receive.</string>
     <string name="about">About</string>
     <string name="version">Version 1.0.00(Beta)</string>
+    <string name="library">Library</string>
+    <string name="youre_an_artist">You are an ARTIST</string>
+    <string name="whats_your_producer_details">What\'s your producer details?</string>
+    <string name="insrumentalGalore">Instrumentals galore</string>
+    <string name="type_of_music_producer">Type of music Producer*</string>
+    <string name="aliasName">Alias Name*</string>
+    <string name="forgotPasswordText">Select which contact details should we use to reset the password.</string>
+    <string name="submitHere">SUBMIT HERE</string>
+    <string name="recentReleases">Recent Releases</string>
+    <string name="preview">Preview</string>
+    <string name="recentActivity">View Recent Activity</string>
 </resources>

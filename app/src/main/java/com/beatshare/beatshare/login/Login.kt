@@ -83,6 +83,7 @@ fun LogPage(
     ) {
 
         var valueEntered by remember{ mutableStateOf("")}
+        var passwordEntered by remember{ mutableStateOf("")}
 
         TextField(
             value = valueEntered,
@@ -92,8 +93,10 @@ fun LogPage(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.White,
-                unfocusedIndicatorColor = Color.White
+                unfocusedIndicatorColor = Color.White,
+                textColor = Color.White
             ),
+            maxLines = 1,
             leadingIcon = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_person_24),
@@ -112,14 +115,16 @@ fun LogPage(
         )
 
         TextField(
-            value = valueEntered,
+            value = passwordEntered,
             modifier = Modifier
                 .scale(0.9f, 1.3f)
                 .padding(30.dp),
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.White,
-                unfocusedIndicatorColor = Color.White
+                unfocusedIndicatorColor = Color.White,
+                textColor = Color.White
             ),
+            maxLines = 1,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             leadingIcon = {
                 Icon(
@@ -128,7 +133,7 @@ fun LogPage(
                     contentDescription = null
                 )},
 
-            onValueChange = {valueEntered = it},
+            onValueChange = {passwordEntered = it},
             label = {
                 Text(
                     text = stringResource(R.string.password),
@@ -140,7 +145,7 @@ fun LogPage(
 
         Button(
             onClick = {
-                navController.navigate(route = Screen.Beats.route)
+                navController.navigate(route = Screen.BeatsProducer.route)
 
             },
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
@@ -155,9 +160,9 @@ fun LogPage(
         }
 
         Button(
-            onClick = {  },
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray),
-            modifier = Modifier.padding(top = 10.dp, bottom = 30.dp)
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
+            modifier = Modifier.padding(top = 10.dp, bottom = 30.dp),
+            onClick = { navController.navigate(route = Screen.GuestAccount.route) }
         ) {
             Text(
                 text = stringResource(R.string.login_guest),
@@ -174,7 +179,7 @@ fun LogPage(
         ) {
             TextButton(
                 onClick = {
-
+                    navController.navigate(route = Screen.ArtistVProducer.route)
                 }
             ) {
                 Text(
@@ -184,7 +189,7 @@ fun LogPage(
                 )
             }
             TextButton(
-                onClick = {  }
+                onClick = { navController.navigate(route = Screen.ForgotPassword.route) }
             ) {
                 Text(
                     text = stringResource(R.string.forgotPassword),

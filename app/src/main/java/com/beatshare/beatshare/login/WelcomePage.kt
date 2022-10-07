@@ -21,7 +21,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.beatshare.beatshare.Greeting
 import com.beatshare.beatshare.R
 import com.beatshare.beatshare.ui.theme.BeatshareTheme
 
@@ -34,6 +33,7 @@ fun Welcome(){
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(30.dp)
         ) {
             body()
         }
@@ -53,12 +53,13 @@ fun body() {
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 text = stringResource(R.string.welcome_beatshare),
-                fontSize = 60.sp,
+                fontSize = 40.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(15.dp)
             )
             Text(
                 text = stringResource(R.string.unique_beats_commercial),
+                fontWeight = FontWeight.ExtraLight,
                 fontSize = 30.sp,
                 modifier = Modifier.padding(15.dp),
                 lineHeight = 50.sp,
@@ -73,7 +74,7 @@ fun body() {
                     text = stringResource(R.string.getStarted),
                     color = Color.White,
                     fontSize = 25.sp,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Light
                 )
             }
             Row(modifier = Modifier.padding(15.dp)) {

@@ -28,12 +28,12 @@ fun Settings(navController: NavController){
         .background(Color.Black)
         .padding(10.dp)
     ){
-        settingBody()
+        SettingBody()
     }
 }
 
 @Composable
-fun settingBody() {
+fun SettingBody() {
     Column(modifier = Modifier.fillMaxSize()) {
         Row(
             modifier = Modifier

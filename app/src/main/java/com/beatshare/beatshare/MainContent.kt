@@ -6,18 +6,20 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.beatshare.beatshare.home.ArtistsHome
-import com.beatshare.beatshare.home.Beats
+import com.beatshare.beatshare.home.BeatsProducer
 import com.beatshare.beatshare.home.ProducersHome
-import com.beatshare.beatshare.login.ArtistSignUp
-import com.beatshare.beatshare.login.ArtistSignUpCont
-import com.beatshare.beatshare.login.ArtistVProducer
-import com.beatshare.beatshare.login.LogIn
+import com.beatshare.beatshare.home.UploadBeats
+import com.beatshare.beatshare.login.*
+import com.beatshare.beatshare.profile.Library
+import com.beatshare.beatshare.profile.ProducerProfile
+import com.beatshare.beatshare.sharedPages.Search
 import com.beatshare.beatshare.sharedPages.Settings
 
 @ExperimentalFoundationApi
 @Composable
 fun MainContent(
-    navController: NavHostController
+    navController: NavHostController,
+    theViewModel: TheViewModel
 ){
     NavHost(
         navController = navController,
@@ -26,8 +28,8 @@ fun MainContent(
         composable(route = Screen.LogIn.route){
             LogIn(navController = navController)
         }
-        composable(route = Screen.Beats.route){
-            Beats(navController = navController)
+        composable(route = Screen.BeatsProducer.route){
+            BeatsProducer(navController = navController)
         }
         composable(route = Screen.ArtistHome.route){
             ArtistsHome(navController = navController)
@@ -39,13 +41,45 @@ fun MainContent(
            ArtistVProducer(navController = navController)
         }
         composable(route = Screen.ArtistSignUp.route){
-            ArtistSignUp(navController = navController)
+            ArtistSignUp(navController = navController, theViewModel = theViewModel)
         }
         composable(route = Screen.ProducerSignUp.route){
-           ProducersHome(navController = navController)
+           ProducerSignUp(navController = navController, theViewModel = theViewModel)
         }
         composable(route = Screen.ArtistSignUpCont.route){
-            ArtistSignUpCont(navController = navController)
+            ArtistSignUpCont(navController = navController, theViewModel = theViewModel)
+        }
+
+        composable(route = Screen.GuestAccount.route){
+            GuestAccount(navController = navController)
+        }
+
+        composable(route = Screen.ForgotPassword.route){
+            ForgotPassword()
+        }
+        composable(route = Screen.ProducerSignUpCont.route){
+            SignUpCont(navController = navController)
+        }
+        composable(route = Screen.UploadBeats.route){
+            UploadBeats()
+        }
+        composable(route = Screen.DigitCode.route){
+            DigitCode()
+        }
+        composable(route = Screen.PasswordReset.route){
+            PasswordReset(navController = navController)
+        }
+        composable(route = Screen.Library.route){
+            Library(theViewModel = theViewModel)
+        }
+        composable(route = Screen.ProducersProfile.route){
+            ProducerProfile(navController = navController)
+        }
+        composable(route = Screen.Search.route){
+            Search()
+        }
+        composable(route = Screen.Settings.route){
+            Settings(navController = navController)
         }
     }
 }

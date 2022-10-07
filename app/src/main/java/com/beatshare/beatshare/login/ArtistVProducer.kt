@@ -19,86 +19,102 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.compose.rememberNavController
-import com.beatshare.beatshare.Greeting
 import com.beatshare.beatshare.R
 import com.beatshare.beatshare.Screen
 import com.beatshare.beatshare.ui.theme.BeatshareTheme
 
 @Composable
 fun ArtistVProducer(navController: NavController){
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
+
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = stringResource(R.string.beforeWeStart),
-                fontSize = 50.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(20.dp)
-            )
-            Text(
-                text = stringResource(R.string.youWantToRegisterAs),
-                fontSize = 35.sp,
-                modifier = Modifier.padding(start = 20.dp,end = 20.dp,top = 30.dp)
-            )
-            Button(
-                onClick = {navController.navigate(route = Screen.ArtistSignUp.route)},
-                modifier = Modifier
-                    .padding(top = 50.dp),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
-            ) {
-                Text(
-                    text = stringResource(R.string.anArtist),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 30.sp,
-                    color = Color.White,
-                    modifier = Modifier
-                        .padding(start = 20.dp, end = 20.dp)
-                )
-            }
-            Text(
-                text = stringResource(R.string.explore_create),
-                fontSize = 20.sp,
-                modifier = Modifier.padding(10.dp)
-            )
-            Row(modifier = Modifier.padding(top = 30.dp, bottom = 20.dp), horizontalArrangement = Arrangement.SpaceEvenly) {
-                Divider(color = Color.Black, thickness = 1.dp, modifier = Modifier
-                    .padding(2.dp)
-                    .width(20.dp))
-                Text(text = stringResource(R.string.or),fontSize = 20.sp,color = Color.Black, modifier = Modifier.padding(2.dp))
-                Divider(color = Color.Black, thickness = 1.dp, modifier = Modifier
-                    .padding(2.dp)
-                    .width(20.dp))
-            }
-            Button(
-                onClick = { navController.navigate(route = Screen.ProducerSignUp.route) },
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
-            ) {
-                Text(
-                    text = stringResource(R.string.producer),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 30.sp,
-                    color = Color.White,
-                    modifier = Modifier.padding(start = 20.dp, end = 20.dp)
-                )
-            }
-            Text(
-                text = stringResource(R.string.publishingBeats),
-                fontSize = 20.sp,
-                modifier = Modifier.padding(10.dp)
-            )
-        }
+        FirstPart()
+        ArtistAndProducer(navController = navController)
+    }
+}
+
+@Composable
+fun FirstPart(){
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .padding(start = 40.dp, top = 40.dp)) {
+        Text(
+            text = stringResource(R.string.beforeWeStart),
+            fontSize = 50.sp,
+            fontWeight = FontWeight.Bold
+        )
+        Text(
+            text = stringResource(R.string.youWantToRegisterAs),
+            fontSize = 35.sp,
+            modifier = Modifier.padding(end = 20.dp,top = 30.dp)
+        )
+        Spacer(modifier = Modifier.padding(60.dp))
     }
 }
 
 
+@Composable 
+fun ArtistAndProducer(navController: NavController){
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxWidth()
+    ){
+        Button(
+            onClick = {navController.navigate(route = Screen.ArtistSignUp.route)},
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
+        ) {
+            Text(
+                text = stringResource(R.string.anArtist),
+                fontWeight = FontWeight.Bold,
+                fontSize = 35.sp,
+                color = Color.White,
+                modifier = Modifier
+                    .padding(start = 40.dp, end = 40.dp)
+            )
+        }
+        Text(
+            text = stringResource(R.string.explore_create),
+            fontSize = 20.sp,
+            modifier = Modifier.padding(10.dp)
+        )
+        Row(
+            modifier = Modifier
+                .padding(top = 30.dp, bottom = 20.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Divider(color = Color.Black, thickness = 1.dp, modifier = Modifier
+                .padding(2.dp)
+                .width(100.dp))
+            Text(text = stringResource(R.string.or),fontSize = 20.sp,color = Color.Black, modifier = Modifier.padding(2.dp))
+            Divider(color = Color.Black, thickness = 1.dp, modifier = Modifier
+                .padding(2.dp)
+                .width(100.dp))
+        }
+        Button(
+            onClick = { navController.navigate(route = Screen.ProducerSignUp.route) },
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
+        ) {
+            Text(
+                text = stringResource(id = R.string.producer),
+                fontWeight = FontWeight.Bold,
+                fontSize = 35.sp,
+                color = Color.White,
+                modifier = Modifier
+                    .padding(start = 40.dp, end = 40.dp)
+            )
+        }
+        Text(
+            text = stringResource(R.string.publishingBeats),
+            fontSize = 20.sp,
+            modifier = Modifier.padding(10.dp)
+        )
+    }
+}
 
 
 
