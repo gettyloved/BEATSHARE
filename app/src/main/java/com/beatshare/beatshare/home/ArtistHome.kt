@@ -168,9 +168,8 @@ fun AexploreView(exploreItems: ExploreItems) {
         modifier = Modifier
             .padding(10.dp)
             .fillMaxSize()
-            .clip(RoundedCornerShape(5.dp))
             .size(80.dp)
-            .background(Color.Blue)
+            .background(Color.Blue, shape=RoundedCornerShape(5.dp))
 
     ) {
         Text(
@@ -212,8 +211,7 @@ fun AeditorView(editorItem: EditorsItems) {
         modifier = Modifier
             .fillMaxSize()
             .padding(10.dp)
-            .background(Color.Gray)
-            .clip(RoundedCornerShape(10.dp))
+            .background(Color.Gray,shape=RoundedCornerShape(5.dp))
             .size(80.dp)
     ) {
         Text(
@@ -262,8 +260,7 @@ fun AeditorGalore(galore: Galore) {
         modifier = Modifier
             .fillMaxSize()
             .padding(10.dp)
-            .background(Color.Magenta)
-            .clip(RoundedCornerShape(10.dp))
+            .background(Color.Magenta,shape=RoundedCornerShape(5.dp))
             .size(80.dp)
     ) {
         Text(
