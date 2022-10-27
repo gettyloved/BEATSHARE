@@ -29,6 +29,7 @@ import com.beatshare.beatshare.ui.theme.BeatshareTheme
 
 @Composable
 fun Search(){
+
     Box(modifier = Modifier
         .fillMaxSize()
         .background(Color.Black)
@@ -45,6 +46,7 @@ fun Search(){
                     .padding(top = 30.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
+
                 Text(
                     text = stringResource(R.string.search),
                     fontWeight = FontWeight.Bold,
@@ -60,7 +62,7 @@ fun Search(){
                 )
             }
 
-            searchView()
+            SearchView()
 
             Text(
                 text = stringResource(R.string.search_entire_collection),
@@ -83,7 +85,10 @@ fun Search(){
 
 
 @Composable
-fun searchView() {
+fun SearchView() {
+    var ans by remember {
+        mutableStateOf("")
+    }
     Card(
         shape = RoundedCornerShape(30.dp),
         backgroundColor = Color.White,
@@ -92,9 +97,7 @@ fun searchView() {
         elevation = 5.dp
     ) {
         Row(){
-            var ans by remember {
-                mutableStateOf("")
-            }
+
             TextField(
                 value = ans,
                 onValueChange = {ans = it},

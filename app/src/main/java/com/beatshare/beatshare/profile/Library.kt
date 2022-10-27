@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Card
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -24,10 +24,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.beatshare.beatshare.ArtistSignupData
 import com.beatshare.beatshare.R
-import com.beatshare.beatshare.TheViewModel
-import com.beatshare.beatshare.login.Welcome
+import com.beatshare.beatshare.Screen
+import com.beatshare.beatshare.ArtistsSignUpViewModel
 import com.beatshare.beatshare.ui.theme.BeatshareTheme
 
 
@@ -36,8 +38,11 @@ import com.beatshare.beatshare.ui.theme.BeatshareTheme
 // The above share some features that a producer should access, like View Stats and View Earnings.
 
 @Composable
-fun Library(theViewModel: TheViewModel){
-    val artistSignupData:ArtistSignupData by theViewModel.artistSignupData.collectAsState(initial = ArtistSignupData.EMPTY)
+fun Library(
+    artistsSignUpViewModel: ArtistsSignUpViewModel,
+    navController: NavController
+){
+    val artistSignupData:ArtistSignupData by artistsSignUpViewModel.artistSignupData.collectAsState(initial = ArtistSignupData.EMPTY)
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -60,11 +65,16 @@ fun Library(theViewModel: TheViewModel){
                     fontSize = 40.sp,
                     color = Color.White
                 )
-                Image(
-                    painter = painterResource(id = R.drawable.ic_baseline_library_music_24),
-                    contentDescription = "Music Library",
-                    modifier = Modifier.size(50.dp)
-                )
+                IconButton(onClick = {
+                    navController.navigate(Screen.Settings.route)
+                }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_baseline_settings_24),
+                        contentDescription = "Music Library",
+                        modifier = Modifier.size(50.dp),
+                        tint = Color.White
+                    )
+                }
             }
             Spacer(modifier = Modifier.padding(15.dp))
             Row(
@@ -76,15 +86,16 @@ fun Library(theViewModel: TheViewModel){
                         painter = painterResource(id = R.drawable.person1),
                         contentDescription = "Person",
                         modifier = Modifier
-                            .size(50.dp)
+                            .size(60.dp)
                             .clip(CircleShape)
                     )
                 }
-                Column {
+                Column (modifier = Modifier.padding(start = 20.dp)){
                     Text(
                         text = "Hello ${artistSignupData.userName}",
                         color = Color.White,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 15.sp
                     )
                     Text(
                         text = stringResource(R.string.youre_an_artist),
@@ -93,173 +104,73 @@ fun Library(theViewModel: TheViewModel){
                 }
             }
             Spacer(modifier = Modifier.padding(15.dp))
-            Row(
+            LazyRow(
                 horizontalArrangement = Arrangement.SpaceEvenly,
                 modifier = Modifier.fillMaxWidth()
             ){
-                Column {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_baseline_library_music_24),
-                        contentDescription = "Statistics Illustrations",
-                        modifier = Modifier.size(100.dp)
-                    )
-                    Text(
-                        text = "View Stats",
-                        color = Color.White
-                    )
-                }
-                Column {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_baseline_library_music_24),
-                        contentDescription = "Statistics Illustrations",
-                        modifier = Modifier.size(100.dp)
-                    )
-                    Text(
-                        text = "Favorites",
-                        color = Color.White
-                    )
-                }
-                Column {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_baseline_library_music_24),
-                        contentDescription = "Statistics Illustrations",
-                        modifier = Modifier.size(100.dp)
-                    )
-                    Text(
-                        text = "View Earnings",
-                        color = Color.White
-                    )
+                items(5){
+                    Column {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_baseline_library_music_24),
+                            contentDescription = "Statistics Illustrations",
+                            modifier = Modifier.size(120.dp)
+                        )
+                        Spacer(modifier = Modifier.padding(5.dp))
+                        Text(
+                            text = "View Stats",
+                            color = Color.White
+                        )
+                    }
                 }
             }
             Spacer(modifier = Modifier.padding(15.dp))
             Column(modifier = Modifier.fillMaxWidth()) {
                 Text(
                     text = stringResource(R.string.recentActivity),
-                    fontSize = 20.sp,
-                    color = Color.White
+                    fontSize = 25.sp,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.padding(10.dp))
-                Row(
+                LazyRow(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
-                    Card(
-                        modifier = Modifier
-                            .size(50.dp),
-                        elevation = 4.dp,
-                        backgroundColor = Color.Red
-                    ) {
-
-                    }
-                    Card(
-                        modifier = Modifier
-                            .size(50.dp),
-                        elevation = 4.dp,
-                        backgroundColor = Color.Green
-                    ) {
-
-                    }
-                    Card(
-                        modifier = Modifier
-                            .size(50.dp),
-                        elevation = 4.dp,
-                        backgroundColor = Color.Gray
-                    ) {
-
+                    items(5){
+                        Box(
+                            modifier = Modifier
+                                .size(120.dp)
+                                .padding(10.dp)
+                                .background(Color.Magenta)
+                                .clip(RoundedCornerShape(10.dp))
+                        )
                     }
                 }
             }
-            Column {
-//            Should be a lazy column
-                Text(text = "Your Purchases", color = Color.White, fontSize = 20.sp)
-                Row(
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    Box(
+            Spacer(modifier = Modifier.padding(15.dp))
+            Text(
+                text = "Your Purchases",
+                color = Color.White,
+                fontSize = 25.sp,
+                fontWeight = FontWeight.Bold
+            )
+            LazyColumn(contentPadding = PaddingValues()){
+                items(10){
+                    Row(
                         modifier = Modifier
-                            .background(Color.Blue)
-                            .size(20.dp)
+                            .fillMaxWidth()
+                            .padding(10.dp),
+                        horizontalArrangement = Arrangement.spacedBy(30.dp)
                     ) {
-
-                    }
-                    Column {
-                        Text(text = "Jazz Tunes")
-                        Text(text = "Sex Vibes")
-                    }
-                }
-                Row(
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .background(Color.Blue)
-                            .size(20.dp)
-                    ) {
-
-                    }
-                    Column {
-                        Text(text = "Afro Tunes")
-                        Text(text = "Dj Zhino")
-                    }
-                }
-                Row(
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .background(Color.Blue)
-                            .size(20.dp)
-                    ) {
-
-                    }
-                    Column {
-                        Text(text = "Gengetone Beats")
-                        Text(text = "Odi sounds")
-                    }
-                }
-                Row(
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .background(Color.Blue)
-                            .size(20.dp)
-                    ) {
-
-                    }
-                    Column {
-                        Text(text = "HipHop Beats")
-                        Text(text = "Casper")
-                    }
-                }
-                Row(
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .background(Color.Blue)
-                            .size(20.dp)
-                    ) {
-
-                    }
-                    Column {
-                        Text(text = "EDM Tunes")
-                        Text(text = "Jedd")
-                    }
-                }
-                Row(
-                    horizontalArrangement = Arrangement.SpaceAround
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .background(Color.Blue)
-                            .size(20.dp)
-                    ) {
-
-                    }
-                    Column {
-                        Text(text = "Rock Beats")
-                        Text(text = "Harts")
+                        Box(
+                            modifier = Modifier
+                                .size(50.dp)
+                                .background(Color.Blue)
+                        )
+                        Column() {
+                            Text(text = "Jazz Tunes", fontWeight = FontWeight.Bold, color = Color.White)
+                            Text(text = "Sex Vibes", color = Color.White)
+                        }
                     }
                 }
             }
@@ -273,7 +184,7 @@ fun Library(theViewModel: TheViewModel){
 @Composable
 fun LibPreview() {
     BeatshareTheme {
-        Library(theViewModel = TheViewModel())
+        Library(artistsSignUpViewModel = ArtistsSignUpViewModel(), navController = rememberNavController())
     }
 }
 

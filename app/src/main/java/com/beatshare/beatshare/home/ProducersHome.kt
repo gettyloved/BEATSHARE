@@ -18,13 +18,18 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,10 +38,12 @@ import androidx.navigation.compose.rememberNavController
 import com.beatshare.beatshare.*
 import com.beatshare.beatshare.R
 import com.beatshare.beatshare.ui.theme.BeatshareTheme
+import com.beatshare.beatshare.utils.generateRandomColors
 
 @ExperimentalFoundationApi
 @Composable
 fun ProducersHome(navController: NavController){
+    val helveticaFont = FontFamily(Font(R.font.helvetica))
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -46,8 +53,8 @@ fun ProducersHome(navController: NavController){
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ){
-            heading()
-            explore(explored = listOf(
+            Heading(navController = navController)
+            Explore(explored = listOf(
                 ExploreItems(
                     stringResource(R.string.rockBeats),
                     R.color.green
@@ -72,9 +79,9 @@ fun ProducersHome(navController: NavController){
                     stringResource(R.string.more_genres),
                     R.color.blue
                 ),
+            ), fontFamily = helveticaFont
             )
-            )
-            editor(
+            Editor(
                 editorsItems = listOf(
                     EditorsItems(
                         stringResource(R.string.curated_sounds)
@@ -89,8 +96,8 @@ fun ProducersHome(navController: NavController){
                         stringResource(R.string.best_instumentals)
                     )
                 )
-            )
-            instrumental(
+            , fontFamily = helveticaFont)
+            InstrumentalGridView(
                 instrument = listOf(
                     Instrumental(
                         "Drums"
@@ -105,7 +112,7 @@ fun ProducersHome(navController: NavController){
                         "Flute"
                     )
                 )
-            )
+            , fontFamily = helveticaFont)
         }
     }
 }
@@ -113,7 +120,7 @@ fun ProducersHome(navController: NavController){
 
 
 @Composable
-fun heading() {
+fun Heading(navController: NavController) {
     Row(
         modifier = Modifier
             .padding(20.dp)
@@ -126,7 +133,7 @@ fun heading() {
             fontSize = 40.sp,
             fontWeight = FontWeight.ExtraBold
         )
-        IconButton(onClick = { Screen.ProducersProfile.route }) {
+        IconButton(onClick = { navController.navigate(Screen.ProducersProfile.route) }) {
             Image(
                 painter = painterResource(id = R.drawable.person1),
                 contentDescription = null,
@@ -140,12 +147,13 @@ fun heading() {
 
 @ExperimentalFoundationApi
 @Composable
-fun explore(explored: List<ExploreItems>){
+fun Explore(explored: List<ExploreItems>, fontFamily: FontFamily){
     Column() {
         Text(
             text = stringResource(R.string.collection_beats),
             color = Color.White,
-            fontSize = 30.sp,
+            fontSize = 22.sp,
+            fontFamily=fontFamily,
             modifier = Modifier.padding(start = 10.dp)
         )
         LazyVerticalGrid(
@@ -153,7 +161,7 @@ fun explore(explored: List<ExploreItems>){
             contentPadding = PaddingValues(10.dp)
         ){
             items(explored.size){
-                exploreView(exploreItems = explored[it])
+                ExploreView(exploreItems = explored[it],fontFamily)
             }
         }
     }
@@ -161,19 +169,21 @@ fun explore(explored: List<ExploreItems>){
 
 
 @Composable
-fun exploreView(exploreItems: ExploreItems) {
+fun ExploreView(exploreItems: ExploreItems,fontFamily: FontFamily) {
+   // val helveticaFont = FontFamily(Font(R.font.helvetica))
+    val color = remember { derivedStateOf { generateRandomColors() } }
     BoxWithConstraints(
         modifier = Modifier
             .padding(10.dp)
             .fillMaxSize()
-            .clip(RoundedCornerShape(5.dp))
             .size(80.dp)
-            .background(Color.Blue)
+            .background(color.value, shape = RoundedCornerShape(5.dp))
 
     ) {
         Text(
             text = exploreItems.title,
             color = Color.White,
+            fontFamily= fontFamily,
             modifier = Modifier
                 .align(Alignment.CenterStart)
                 .padding(start = 10.dp)
@@ -184,12 +194,14 @@ fun exploreView(exploreItems: ExploreItems) {
 
 @ExperimentalFoundationApi
 @Composable
-fun editor(editorsItems: List<EditorsItems>) {
+fun Editor(editorsItems: List<EditorsItems>,fontFamily: FontFamily) {
     Column() {
         Text(
             text = stringResource(R.string.editorsPicks),
             color = Color.White,
-            fontSize = 30.sp,
+            fontSize = 22.sp,
+            fontFamily=fontFamily,
+            textAlign= TextAlign.Start,
             modifier = Modifier.padding(start = 10.dp)
         )
         LazyVerticalGrid(
@@ -197,25 +209,26 @@ fun editor(editorsItems: List<EditorsItems>) {
             contentPadding = PaddingValues(10.dp)
         ){
             items(editorsItems.size){
-                editorView(editorItem = editorsItems[it])
+                EditorView(editorItem = editorsItems[it],fontFamily=fontFamily)
             }
         }
     }
 }
 
 @Composable
-fun editorView(editorItem: EditorsItems) {
+fun EditorView(editorItem: EditorsItems,fontFamily: FontFamily) {
+    val color = remember { derivedStateOf { generateRandomColors() } }
     BoxWithConstraints(
         modifier = Modifier
             .fillMaxSize()
             .padding(10.dp)
-            .background(Color.Gray)
-            .clip(RoundedCornerShape(10.dp))
+            .background(color.value,shape= RoundedCornerShape(10.dp))
             .size(80.dp)
     ) {
         Text(
             text = editorItem.topic,
             color = Color.White,
+            fontFamily=fontFamily,
             modifier = Modifier
                 .align(Alignment.CenterStart)
                 .padding(10.dp)
@@ -228,12 +241,13 @@ fun editorView(editorItem: EditorsItems) {
 
 @ExperimentalFoundationApi
 @Composable
-fun instrumental(instrument: List<Instrumental>) {
+fun InstrumentalGridView(instrument: List<Instrumental>,fontFamily: FontFamily) {
     Column() {
         Text(
             text = stringResource(R.string.instruments_galore),
             color = Color.White,
-            fontSize = 30.sp,
+            fontSize = 22.sp,
+            fontFamily=fontFamily,
             modifier = Modifier.padding(start = 10.dp)
         )
         LazyVerticalGrid(
@@ -241,37 +255,33 @@ fun instrumental(instrument: List<Instrumental>) {
             contentPadding = PaddingValues(10.dp)
         ){
             items(instrument.size){
-                instrumentalView(instruments = instrument[it])
+                InstrumentalView(instruments = instrument[it], fontFamily = fontFamily)
             }
         }
     }
 }
 
 @Composable
-fun instrumentalView(instruments: Instrumental) {
+fun InstrumentalView(modifier:Modifier=Modifier,
+                     instruments: Instrumental,fontFamily: FontFamily) {
+    val color = remember { derivedStateOf { generateRandomColors() } }
     BoxWithConstraints(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(10.dp)
-            .background(Color.Magenta)
-            .clip(RoundedCornerShape(10.dp))
+            .background(color.value,shape = RoundedCornerShape(10.dp))
             .size(80.dp)
     ) {
         Text(
             text = instruments.heading,
             color = Color.White,
+            fontFamily=fontFamily,
             modifier = Modifier
                 .align(Alignment.CenterStart)
                 .padding(10.dp)
         )
     }
 }
-
-
-
-
-
-
 
 
 @ExperimentalFoundationApi

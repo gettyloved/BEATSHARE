@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,15 +44,15 @@ fun FirstPart(){
         .padding(start = 40.dp, top = 40.dp)) {
         Text(
             text = stringResource(R.string.beforeWeStart),
-            fontSize = 50.sp,
+            fontSize = 28.sp,
             fontWeight = FontWeight.Bold
         )
         Text(
             text = stringResource(R.string.youWantToRegisterAs),
-            fontSize = 35.sp,
+            fontSize = 22.sp,
             modifier = Modifier.padding(end = 20.dp,top = 30.dp)
         )
-        Spacer(modifier = Modifier.padding(60.dp))
+        Spacer(modifier = Modifier.padding(20.dp))
     }
 }
 
@@ -69,12 +70,12 @@ fun ArtistAndProducer(navController: NavController){
             Text(
                 text = stringResource(R.string.anArtist),
                 fontWeight = FontWeight.Bold,
-                fontSize = 35.sp,
+                fontSize = 20.sp,
+                textAlign= TextAlign.Center,
                 color = Color.White,
-                modifier = Modifier
-                    .padding(start = 40.dp, end = 40.dp)
             )
         }
+        Spacer(Modifier.height(10.dp))
         Text(
             text = stringResource(R.string.explore_create),
             fontSize = 20.sp,
@@ -102,12 +103,12 @@ fun ArtistAndProducer(navController: NavController){
             Text(
                 text = stringResource(id = R.string.producer),
                 fontWeight = FontWeight.Bold,
-                fontSize = 35.sp,
+                fontSize = 20.sp,
                 color = Color.White,
-                modifier = Modifier
-                    .padding(start = 40.dp, end = 40.dp)
+                textAlign= TextAlign.Center,
             )
         }
+        Spacer(Modifier.height(10.dp))
         Text(
             text = stringResource(R.string.publishingBeats),
             fontSize = 20.sp,

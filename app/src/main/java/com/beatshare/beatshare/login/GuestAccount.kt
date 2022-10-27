@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,7 +31,7 @@ fun GuestAccount(navController: NavController){
     ) {
         Image(
             painter = painterResource(id = R.drawable.logo),
-            contentDescription = "logo",
+            contentDescription = "",
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .size(90.dp)
@@ -55,7 +56,7 @@ fun GuestAccount(navController: NavController){
                     colors = ButtonDefaults.buttonColors(Color.White)
                 ) {
                     Text(
-                        text = "Sign Up",
+                        text = stringResource(id = R.string.signUp),
                         fontSize = 35.sp
                     )
                 }
@@ -65,7 +66,7 @@ fun GuestAccount(navController: NavController){
                     colors = ButtonDefaults.buttonColors(Color.Black)
                 ) {
                     Text(
-                        text = "Login",
+                        text = stringResource(id = R.string.login),
                         fontSize = 35.sp,
                         color = Color.White
                     )
@@ -77,10 +78,10 @@ fun GuestAccount(navController: NavController){
                 modifier = Modifier.fillMaxWidth()
             ) {
                 TextButton(
-                    onClick = {  }
+                    onClick = { navController.navigate(Screen.BeatsProducer.route) }
                 ) {
                     Text(
-                        text = "Continue without Login",
+                        text = stringResource(R.string.withoutLogin),
                         color = Color.White,
                         fontSize = 25.sp
                     )

@@ -5,7 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Icon
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -51,7 +51,7 @@ fun BeatsProducer(navController: NavController) {
                   text = "Beats by \nProducers",
                   fontWeight = FontWeight.ExtraBold,
                   color = Color.White,
-                  fontSize = 50.sp
+                  fontSize = 22.sp
               )
               IconButton(
                   onClick = {
@@ -63,6 +63,7 @@ fun BeatsProducer(navController: NavController) {
               ) {
                  Image(
                      painter = painterResource(id = R.drawable.person1),
+                     modifier=Modifier.size(120.dp),
                      contentDescription = null
                  )
               }
@@ -81,6 +82,7 @@ fun BeatsProducer(navController: NavController) {
                   TopFeature("Prod", R.drawable.ic_baseline_account_circle_24)
               )
           )
+        Spacer(Modifier.height(25.dp))
           Sounds(
               topSound = listOf(
                   TopSounds(R.color.blue,"Grass","Prod - $3.00"),
@@ -93,6 +95,7 @@ fun BeatsProducer(navController: NavController) {
                   TopSounds(R.color.white,"Calm","Prod - $1.95")
               )
           )
+           Spacer(Modifier.height(25.dp))
           NewSounds(
               newSound = listOf(
                   NewSound(R.color.blue,"Grass","Prod - $3.00"),
@@ -113,7 +116,7 @@ fun BeatsProducer(navController: NavController) {
 fun Featured(topFeature:List<TopFeature>) {
     Text(
         text = "Top Featured",
-        fontSize = 30.sp,
+        fontSize = 22.sp,
         fontWeight = FontWeight.Bold,
         color = Color.White
     )
@@ -155,7 +158,7 @@ fun FeaturedItems(topFeature: TopFeature) {
 fun Sounds(topSound:List<TopSounds>) {
     Text(
         text = "Top Sounds",
-        fontSize = 30.sp,
+        fontSize = 22.sp,
         fontWeight = FontWeight.Bold,
         color = Color.White
     )
@@ -183,7 +186,9 @@ fun SoundItems(topSound: TopSounds) {
                 .height(130.dp)
                 .width(150.dp)
                 .padding(10.dp)
-                .background(color = colorResource(id = topSound.color))
+                .background(color = colorResource(id = topSound.color),
+                    shape= RoundedCornerShape(10.dp)
+                )
         ) {
 
         }
@@ -235,7 +240,7 @@ fun SoundsItems(newSound: NewSound) {
                 .height(130.dp)
                 .width(150.dp)
                 .padding(10.dp)
-                .background(color = colorResource(id = newSound.color))
+                .background(color = colorResource(id = newSound.color),shape=RoundedCornerShape(5.dp))
         ) {
 
         }

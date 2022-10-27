@@ -2,13 +2,12 @@ package com.beatshare.beatshare.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -37,9 +36,9 @@ fun DigitCode(){
             text = "Enter the \n4-digit code",
             fontWeight = FontWeight.Bold,
             color = Color.White,
-            fontSize = 50.sp
+            fontSize = 20.sp
         )
-        Spacer(modifier = Modifier.padding(20.dp))
+        Spacer(modifier = Modifier.padding(18.dp))
         Text(
             text = "The recovery code has been sent to your mobile number. \nPlease enter the code.",
             fontSize = 25.sp,
@@ -61,28 +60,28 @@ fun DigitCode(){
                 value = digitOne,
                 onValueChange = {digitOne = it},
                 modifier = Modifier
-                    .background(Color.Gray)
+                    .background(Color.Gray,shape=RoundedCornerShape(10.dp))
                     .width(50.dp)
             )
             OutlinedTextField(
                 value = digitTwo,
                 onValueChange = {digitTwo = it},
                 modifier = Modifier
-                    .background(Color.Gray)
+                    .background(Color.Gray,shape=RoundedCornerShape(10.dp))
                     .width(50.dp)
             )
             OutlinedTextField(
                 value = digitThree,
                 onValueChange = {digitThree = it},
                 modifier = Modifier
-                    .background(Color.Gray)
+                    .background(Color.Gray,shape=RoundedCornerShape(10.dp))
                     .width(50.dp)
             )
             OutlinedTextField(
                 value = digitFour,
                 onValueChange = {digitFour = it},
                 modifier = Modifier
-                    .background(Color.Gray)
+                    .background(Color.Gray,shape=RoundedCornerShape(10.dp))
                     .width(50.dp)
             )
         }

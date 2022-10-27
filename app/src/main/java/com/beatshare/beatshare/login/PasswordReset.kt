@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -53,7 +52,7 @@ fun PasswordReset(navController: NavController){
         Spacer(modifier = Modifier.padding(20.dp))
         Text(
             text = "Password \nReset \nSuccessful",
-            fontSize = 40.sp,
+            fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White
         )
@@ -61,7 +60,7 @@ fun PasswordReset(navController: NavController){
         Text(
             text = "You have successfully reset your password. \nPlease login with your new password",
             color = Color.White,
-            fontSize = 25.sp,
+            fontSize = 22.sp,
             fontWeight = FontWeight.Light
         )
         Spacer(modifier = Modifier.padding(20.dp))

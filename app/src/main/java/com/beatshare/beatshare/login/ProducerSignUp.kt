@@ -29,15 +29,14 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.beatshare.beatshare.R
 import com.beatshare.beatshare.Screen
-import com.beatshare.beatshare.TheViewModel
+import com.beatshare.beatshare.ArtistsSignUpViewModel
 import com.beatshare.beatshare.ui.theme.BeatshareTheme
-import com.beatshare.beatshare.ui.theme.White
 
 
 @Composable
 fun ProducerSignUp(
     navController: NavController,
-    theViewModel: TheViewModel
+    artistsSignUpViewModel: ArtistsSignUpViewModel
 ){
     Box(
         modifier = Modifier
@@ -71,8 +70,6 @@ fun ProducerSignUp(
                 fontSize = 20.sp,
                 color = Color.White
             )
-
-            val mContext = LocalContext.current
 
             TextField(
                 value = pFirstNameText,
@@ -152,7 +149,7 @@ fun ProducerSignUp(
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 visualTransformation = if (ispPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                 trailingIcon = {
-                    IconButton(onClick = { ispPasswordVisible == !ispPasswordVisible }) {
+                    IconButton(onClick = { ispPasswordVisible =!ispPasswordVisible }) {
                         Icon(
                             imageVector = if(ispPasswordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
                             contentDescription = null
@@ -177,7 +174,7 @@ fun ProducerSignUp(
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 visualTransformation = if(ispConfirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                 trailingIcon = {
-                    IconButton(onClick = { ispConfirmPasswordVisible == !ispConfirmPasswordVisible }) {
+                    IconButton(onClick = { ispConfirmPasswordVisible =! ispConfirmPasswordVisible }) {
                         Icon(
                             imageVector = if (ispConfirmPasswordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
                             contentDescription = null
@@ -263,7 +260,7 @@ fun ProducerSignUp(
 @Composable
 fun SPreview() {
     BeatshareTheme {
-        ProducerSignUp(navController = rememberNavController(), theViewModel = TheViewModel())
+        ProducerSignUp(navController = rememberNavController(), artistsSignUpViewModel = ArtistsSignUpViewModel())
     }
 }
 

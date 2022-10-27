@@ -8,7 +8,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -17,17 +16,16 @@ import com.beatshare.beatshare.ui.theme.BeatshareTheme
 
 @OptIn(ExperimentalFoundationApi::class)
 class MainActivity : ComponentActivity() {
-private val theViewModel:TheViewModel by viewModels ()
+private val artistsSignUpViewModel:ArtistsSignUpViewModel by viewModels ()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             BeatshareTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    MainContent(navController = rememberNavController(), theViewModel = theViewModel)
+                    MainContent(navController = rememberNavController(), artistsSignUpViewModel = artistsSignUpViewModel)
                 }
             }
         }
@@ -42,6 +40,6 @@ private val theViewModel:TheViewModel by viewModels ()
 @Composable
 fun DefaultPreview() {
     BeatshareTheme {
-        MainContent(navController = rememberNavController(), theViewModel = TheViewModel())
+        MainContent(navController = rememberNavController(), artistsSignUpViewModel = ArtistsSignUpViewModel())
     }
 }

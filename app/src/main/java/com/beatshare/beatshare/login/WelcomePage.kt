@@ -12,7 +12,8 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.BottomCenter
+import androidx.compose.ui.Alignment.Companion.TopCenter
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -35,13 +36,13 @@ fun Welcome(){
                 .fillMaxSize()
                 .padding(30.dp)
         ) {
-            body()
+            Body()
         }
     }
 }
 
 @Composable
-fun body() {
+fun Body() {
     Column(){
         Image(
             painter = painterResource(id = R.drawable.logo),
@@ -50,24 +51,30 @@ fun body() {
                 .size(150.dp)
                 .padding(10.dp)
         )
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-            Text(
-                text = stringResource(R.string.welcome_beatshare),
-                fontSize = 40.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(15.dp)
-            )
-            Text(
-                text = stringResource(R.string.unique_beats_commercial),
-                fontWeight = FontWeight.ExtraLight,
-                fontSize = 30.sp,
-                modifier = Modifier.padding(15.dp),
-                lineHeight = 50.sp,
-            )
+        Spacer(modifier = Modifier.padding(10.dp))
+        Box(modifier = Modifier.fillMaxSize()) {
+            Column(modifier = Modifier.align(TopCenter)) {
+                Text(
+                    text = stringResource(R.string.welcome_beatshare),
+                    fontSize = 40.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(15.dp)
+                )
+                Text(
+                    text = stringResource(R.string.unique_beats_commercial),
+                    fontWeight = FontWeight.ExtraLight,
+                    fontSize = 30.sp,
+                    modifier = Modifier.padding(15.dp),
+                    lineHeight = 50.sp,
+                )
+            }
             Spacer(modifier = Modifier.height(40.dp))
             Button(
                 onClick = { },
-                modifier = Modifier.padding(25.dp),
+                modifier = Modifier
+                    .align(BottomCenter)
+                    .fillMaxWidth()
+                    .padding(bottom = 80.dp),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
             ) {
                 Text(
@@ -77,11 +84,21 @@ fun body() {
                     fontWeight = FontWeight.Light
                 )
             }
-            Row(modifier = Modifier.padding(15.dp)) {
-                Text(text = stringResource(R.string.anAccount))
+            Row(
+                modifier = Modifier
+                    .padding(bottom = 20.dp)
+                    .fillMaxWidth()
+                    .align(BottomCenter),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = stringResource(R.string.anAccount),
+                    fontSize = 25.sp
+                )
                 Text(
                     text = stringResource(R.string.login),
-                    modifier = Modifier.clickable {  }
+                    modifier = Modifier.clickable {  },
+                    fontSize = 25.sp
                 )
             }
         }

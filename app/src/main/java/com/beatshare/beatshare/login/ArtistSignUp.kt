@@ -6,7 +6,6 @@ package com.beatshare.beatshare.login
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -15,7 +14,6 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -33,14 +31,14 @@ import androidx.navigation.compose.rememberNavController
 import com.beatshare.beatshare.ArtistSignupData
 import com.beatshare.beatshare.R
 import com.beatshare.beatshare.Screen
-import com.beatshare.beatshare.TheViewModel
+import com.beatshare.beatshare.ArtistsSignUpViewModel
 import com.beatshare.beatshare.ui.theme.BeatshareTheme
 
 
 @Composable
 fun ArtistSignUp(
     navController: NavHostController,
-    theViewModel: TheViewModel
+    artistsSignUpViewModel: ArtistsSignUpViewModel
 ){
     Box(
         modifier = Modifier
@@ -49,7 +47,7 @@ fun ArtistSignUp(
         Column(modifier = Modifier
             .fillMaxSize()
             .background(Color.Black)) {
-            ArtistData(navController = navController, theViewModel = theViewModel)
+            ArtistData(navController = navController, artistsSignUpViewModel = artistsSignUpViewModel)
         }
     }
 }
@@ -57,7 +55,7 @@ fun ArtistSignUp(
 @Composable
 fun ArtistData(
     navController:NavController,
-    theViewModel: TheViewModel
+    artistsSignUpViewModel: ArtistsSignUpViewModel
 ) {
     var mFirstNameText by remember{ mutableStateOf("") }
     var mLastNameText by remember{ mutableStateOf("") }
@@ -76,8 +74,6 @@ fun ArtistData(
             .fillMaxHeight()
             .padding(start = 50.dp)
     ) {
-
-        val mContext = LocalContext.current
 
         Text(
             text = stringResource(R.string.signUp),
@@ -189,7 +185,7 @@ fun ArtistData(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
-                IconButton(onClick = { isPasswordVisible == !isPasswordVisible }) {
+                IconButton(onClick = { isPasswordVisible =!isPasswordVisible }) {
                     Icon(
                         imageVector = if(isPasswordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
                         contentDescription = null
@@ -216,7 +212,8 @@ fun ArtistData(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             visualTransformation = if(isConfirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
-                IconButton(onClick = { isConfirmPasswordVisible == !isConfirmPasswordVisible }) {
+                IconButton(onClick = {
+                    isConfirmPasswordVisible =!isConfirmPasswordVisible }) {
                     Icon(
                         imageVector = if (isConfirmPasswordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
                         contentDescription = null
@@ -233,7 +230,7 @@ fun ArtistData(
         Button(
             onClick = {
                 val artistSignupData = ArtistSignupData(mFirstNameText,mLastNameText,mUserNameText,mEmailText)
-                theViewModel.setArtistSignUpDetails(artistSignupData)
+                artistsSignUpViewModel.setArtistSignUpDetails(artistSignupData)
                 navController.navigate(route = Screen.ArtistSignUpCont.route)
                 
             },
@@ -241,30 +238,37 @@ fun ArtistData(
                     && mEmailText.isNotBlank() && mUserNameText.isNotBlank()
                     && mPassword.isNotBlank() && mConfirmPassword.isNotBlank(),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
-            modifier = Modifier.padding(start = 30.dp,end = 30.dp, top = 10.dp, bottom = 10.dp)
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
+                .padding(start = 30.dp,end = 30.dp, top = 10.dp, bottom = 10.dp)
         ) {
-            Row(
-                horizontalArrangement = Arrangement.Center,
+            Text(
+                text = stringResource(R.string.next),
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black
+            )
+            Icon(
+                painter = painterResource(id = R.drawable.ic_baseline_arrow_forward_24),
+                contentDescription = "",
                 modifier = Modifier
-                    .background(Color.White)
-                    .padding(start = 30.dp, end = 30.dp, top = 10.dp, bottom = 10.dp)
-            ) {
-                Text(
-                    text = stringResource(R.string.next),
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black
-                )
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_baseline_arrow_forward_24),
-                    contentDescription = "",
-                    modifier = Modifier
-                        .padding(start = 10.dp)
-                )
-            }
+                    .padding(start = 10.dp)
+            )
+//            Row(
+//                horizontalArrangement = Arrangement.Center,
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .background(Color.White)
+//                //    .padding(start = 30.dp, end = 30.dp, top = 10.dp, bottom = 10.dp)
+//            ) {
+//
+//            }
         }
         val checkedState = remember{ mutableStateOf(true)}
-        Row(horizontalArrangement = Arrangement.Center) {
+        Row(verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start,
+            modifier=Modifier.fillMaxWidth()
+                .align(Alignment.Start)) {
             Checkbox(
                 checked = false,
                 onCheckedChange = { checkedState.value = it },
@@ -273,12 +277,14 @@ fun ArtistData(
                     checkmarkColor = Color.White
                 )
             )
-            Row(verticalAlignment = Alignment.CenterVertically){
-                Text(text = stringResource(R.string.agree_with), fontSize = 20.sp,color = Color.White)
-                TextButton(onClick = { }) {
-                    Text(text = stringResource(R.string.terms_conditions), fontSize = 20.sp,color = Color.White)
-                }
+            Text(text = stringResource(R.string.agree_with),
+                fontSize = 18.sp,color = Color.White)
+            TextButton(onClick = { }) {
+                Text(text = stringResource(R.string.terms_conditions),
+                    fontSize = 18.sp,color = Color.White,
+                    modifier = Modifier.fillMaxWidth())
             }
+
         }
         Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
             Text(text = stringResource(R.string.anAccount), fontSize = 20.sp,color = Color.White)
@@ -296,7 +302,7 @@ fun ArtistData(
 @Composable
 fun ArtSignPreview() {
     BeatshareTheme {
-        ArtistSignUp(navController = rememberNavController(), theViewModel = TheViewModel())
+        ArtistSignUp(navController = rememberNavController(), artistsSignUpViewModel = ArtistsSignUpViewModel())
     }
 }
 

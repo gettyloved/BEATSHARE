@@ -1,5 +1,9 @@
 package com.beatshare.beatshare
 
-data class Instrumental(
+import androidx.compose.runtime.Immutable
+
+@Immutable
+@JvmInline
+value class Instrumental(
     val heading:String
 )

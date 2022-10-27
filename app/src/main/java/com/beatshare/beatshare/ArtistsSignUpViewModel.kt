@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 
-class TheViewModel: ViewModel() {
+class ArtistsSignUpViewModel: ViewModel() {
 //    MUTABLESTATEfLOW
    private val _artistSignupData = MutableStateFlow<ArtistSignupData>(ArtistSignupData.EMPTY)
    private val _artistsSignupContData = MutableStateFlow<ArtistSignupContData>(ArtistSignupContData.EMPTY)
@@ -16,6 +16,7 @@ class TheViewModel: ViewModel() {
 
 //   FUNCTIONS
     fun setArtistSignUpDetails (artistSignupData: ArtistSignupData){
+
         _artistSignupData.update {
             it.copy(firstName = artistSignupData.firstName, lastName = artistSignupData.lastName,
                 userName = artistSignupData.userName, email = artistSignupData.email

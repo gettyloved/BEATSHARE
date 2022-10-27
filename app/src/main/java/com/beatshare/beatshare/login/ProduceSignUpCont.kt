@@ -5,7 +5,6 @@ package com.beatshare.beatshare.login
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -67,7 +66,8 @@ fun Address(){
             onValueChange = {pAliasName = it},
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.White,
-                unfocusedIndicatorColor = Color.White
+                unfocusedIndicatorColor = Color.White,
+                textColor = Color.White
             ),
             modifier = Modifier
                 .height(70.dp),
@@ -86,7 +86,8 @@ fun Address(){
             onValueChange = {pType = it},
             colors = TextFieldDefaults.textFieldColors(
                 focusedIndicatorColor = Color.White,
-                unfocusedIndicatorColor = Color.White
+                unfocusedIndicatorColor = Color.White,
+                textColor = Color.White
             ),
             modifier = Modifier
                 .height(70.dp),

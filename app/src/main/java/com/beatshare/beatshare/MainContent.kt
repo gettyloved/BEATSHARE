@@ -19,7 +19,7 @@ import com.beatshare.beatshare.sharedPages.Settings
 @Composable
 fun MainContent(
     navController: NavHostController,
-    theViewModel: TheViewModel
+    artistsSignUpViewModel: ArtistsSignUpViewModel
 ){
     NavHost(
         navController = navController,
@@ -41,13 +41,13 @@ fun MainContent(
            ArtistVProducer(navController = navController)
         }
         composable(route = Screen.ArtistSignUp.route){
-            ArtistSignUp(navController = navController, theViewModel = theViewModel)
+            ArtistSignUp(navController = navController, artistsSignUpViewModel = artistsSignUpViewModel)
         }
         composable(route = Screen.ProducerSignUp.route){
-           ProducerSignUp(navController = navController, theViewModel = theViewModel)
+           ProducerSignUp(navController = navController, artistsSignUpViewModel = artistsSignUpViewModel)
         }
         composable(route = Screen.ArtistSignUpCont.route){
-            ArtistSignUpCont(navController = navController, theViewModel = theViewModel)
+            ArtistSignUpCont(navController = navController, artistsSignUpViewModel = artistsSignUpViewModel)
         }
 
         composable(route = Screen.GuestAccount.route){
@@ -55,7 +55,7 @@ fun MainContent(
         }
 
         composable(route = Screen.ForgotPassword.route){
-            ForgotPassword()
+            ForgotPassword(navController = navController)
         }
         composable(route = Screen.ProducerSignUpCont.route){
             SignUpCont(navController = navController)
@@ -70,7 +70,7 @@ fun MainContent(
             PasswordReset(navController = navController)
         }
         composable(route = Screen.Library.route){
-            Library(theViewModel = theViewModel)
+            Library(artistsSignUpViewModel = artistsSignUpViewModel, navController = navController)
         }
         composable(route = Screen.ProducersProfile.route){
             ProducerProfile(navController = navController)

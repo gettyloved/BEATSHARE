@@ -31,14 +31,19 @@ import com.beatshare.beatshare.ui.theme.BeatshareTheme
 
 @Composable
 fun LogIn(navController:NavHostController){
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Black)
-    ) {
-        LogoPage()
-        LogPage(navController = navController)
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(Color.Black)) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(15.dp)
+        ) {
+            LogoPage()
+            LogPage(navController = navController)
+        }
     }
+
 }
 
 

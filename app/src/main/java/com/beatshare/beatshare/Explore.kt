@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -17,10 +16,10 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.beatshare.beatshare.login.ForgotPassword
 import com.beatshare.beatshare.ui.theme.BeatshareTheme
 
 
@@ -119,6 +118,7 @@ fun Releases(releasesItems: ReleasesItems) {
                   .width(150.dp)
                   .background(colorResource(id = releasesItems.color))
           ) {}
+           Spacer(Modifier.height(10.dp))
           Text(
               text = releasesItems.title,
               color = Color.White
@@ -129,16 +129,22 @@ fun Releases(releasesItems: ReleasesItems) {
 
 @Composable
 fun Tracks(trackItems: List<TrackItems>) {
-    Text(
-        text = "Tracks",
-        fontWeight = FontWeight.Bold,
-        fontSize = 20.sp,
-        color = Color.White
-    )
+
     LazyColumn(
         contentPadding = PaddingValues(10.dp),
         modifier = Modifier.fillMaxWidth()
     ){
+        item {  Text(
+            text = "Tracks",
+            fontWeight = FontWeight.Bold,
+            fontSize = 20.sp,
+            color = Color.White,
+            textAlign= TextAlign.Start,
+            modifier=Modifier.padding(horizontal = 10.dp)
+        )
+        }
+        item{ Spacer(Modifier.height(10.dp)) }
+
         items(trackItems.size){
             TrackCard(trackItems = trackItems[it])
         }

@@ -6,7 +6,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -14,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -22,16 +20,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.beatshare.beatshare.R
 import com.beatshare.beatshare.Screen
-import com.beatshare.beatshare.home.ProducersHome
 import com.beatshare.beatshare.ui.theme.BeatshareTheme
-import com.beatshare.beatshare.ui.theme.White
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun ForgotPassword(){
+fun ForgotPassword(navController: NavController){
    Column(
        modifier = Modifier
            .fillMaxSize()
@@ -47,50 +44,49 @@ fun ForgotPassword(){
        Text(
            text = "Forgot\nPassword",
            fontWeight = FontWeight.ExtraBold,
-           fontSize = 50.sp,
+           fontSize = 25.sp,
            color = Color.White
        )
        Spacer(modifier = Modifier.padding(10.dp))
        Text(
            text = stringResource(R.string.forgotPasswordText),
            color = Color.White,
-           fontSize = 30.sp,
+           fontSize = 22.sp,
            fontWeight = FontWeight.ExtraLight
        )
        Spacer(modifier = Modifier.padding(20.dp))
        Box(
            modifier = Modifier
                .alpha(0.6f)
-               .background(Color.Gray)
-               .clip(RoundedCornerShape(20.dp))
+               .background(Color.Gray, shape=RoundedCornerShape(20.dp))
                .fillMaxWidth()
                .align(Alignment.CenterHorizontally)
-               .clickable { Screen.DigitCode.route },
+               .clickable { navController.navigate(Screen.DigitCode.route) },
        ){
            Row(
                horizontalArrangement = Arrangement.SpaceAround,
+               verticalAlignment=Alignment.CenterVertically,
                modifier = Modifier
-                   .padding(top = 10.dp,bottom = 10.dp , start = 20.dp, end = 20.dp)
-                   .clip(RoundedCornerShape(20.dp))
+                   .padding(top = 10.dp, bottom = 10.dp, start = 20.dp, end = 20.dp)
                    .fillMaxWidth()
            ) {
              Icon(
                  painter = painterResource(id = R.drawable.ic_baseline_smartphone_24),
                  contentDescription = "null",
-                 modifier = Modifier.size(50.dp),
+                 modifier = Modifier.size(20.dp),
                  tint = Color.White
              )
              Column() {
                 Text(
                     text = "via SMS",
                     fontWeight = FontWeight.Bold,
-                    fontSize = 25.sp,
+                    fontSize = 18.sp,
                     color = Color.White
                 )
                  Text(
                      text = "**** **** *017",
                      fontWeight = FontWeight.Bold,
-                     fontSize = 25.sp,
+                     fontSize = 18.sp,
                      color = Color.White
                  )
              }
@@ -100,35 +96,35 @@ fun ForgotPassword(){
        Box(
            modifier = Modifier
                .alpha(0.6f)
-               .background(Color.Gray)
-               .clip(RoundedCornerShape(20.dp))
+               .background(Color.Gray, shape=RoundedCornerShape(20.dp))
                .fillMaxWidth()
-               .align(Alignment.CenterHorizontally),
+               .align(Alignment.CenterHorizontally)
+               .clickable { navController.navigate(Screen.DigitCode.route) },
        ){
            Row(
                horizontalArrangement = Arrangement.SpaceAround,
+               verticalAlignment=Alignment.CenterVertically,
                modifier = Modifier
-                   .padding(top = 10.dp,bottom = 10.dp , start = 20.dp, end = 20.dp)
-                   .clip(RoundedCornerShape(20.dp))
+                   .padding(top = 10.dp, bottom = 10.dp,start = 20.dp, end = 20.dp)
                    .fillMaxWidth()
            ) {
                Icon(
                    painter = painterResource(id = R.drawable.ic_baseline_email_24),
                    contentDescription = "null",
-                   modifier = Modifier.size(50.dp),
+                   modifier = Modifier.size(20.dp),
                    tint = Color.White
                )
                Column(modifier = Modifier.padding(start = 5.dp)) {
                    Text(
                        text = "via Email",
                        fontWeight = FontWeight.Bold,
-                       fontSize = 25.sp,
+                       fontSize = 18.sp,
                        color = Color.White
                    )
                    Text(
                        text = "****e@gmail.com",
                        fontWeight = FontWeight.Bold,
-                       fontSize = 25.sp,
+                       fontSize = 18.sp,
                        color = Color.White
                    )
                }
@@ -143,6 +139,6 @@ fun ForgotPassword(){
 @Composable
 fun ForgotPreview() {
     BeatshareTheme {
-        ForgotPassword()
+        ForgotPassword( navController = rememberNavController())
     }
 }

@@ -1,8 +1,9 @@
 package com.beatshare.beatshare
 
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
 
-@Stable
+@Immutable
 data class ArtistSignupData(
    val firstName:String,
    val lastName:String,
@@ -14,7 +15,7 @@ data class ArtistSignupData(
     }
 }
 
-@Stable
+@Immutable
 data class ArtistSignupContData(
     val country:String,
     val city:String,
