@@ -34,11 +34,14 @@ fun ArtistSignUpCont(
     navController: NavController,
     artistsSignUpViewModel: ArtistsSignUpViewModel
 ){
+    val isCountryValid by artistsSignUpViewModel.artistsSignUpDataValid.collectAsState()
+    val isCityValid by artistsSignUpViewModel.artistsSignUpDataValid.collectAsState()
+    val isZipValid by artistsSignUpViewModel.artistsSignUpDataValid.collectAsState()
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black)
-            .padding(start = 20.dp )
+            .padding(start = 20.dp)
             .scrollable(rememberScrollState(), orientation = Orientation.Vertical)
     ) {
         var mCountry by remember { mutableStateOf("")}
@@ -68,6 +71,9 @@ fun ArtistSignUpCont(
                     unfocusedIndicatorColor = Color.White,
                     textColor = Color.White
                 ),
+//                isError = isCountryValid.isCountryValid,
+                maxLines = 1,
+                singleLine = true,
                 modifier = Modifier
                     .padding(10.dp)
                     .height(70.dp),
@@ -94,6 +100,9 @@ fun ArtistSignUpCont(
                 modifier = Modifier
                     .padding(10.dp)
                     .height(70.dp),
+                maxLines = 1,
+//                isError = isCityValid.isCityValid,
+                singleLine = true,
                 label = {
                     Text(
                         text = stringResource(R.string.city_town),
@@ -117,6 +126,9 @@ fun ArtistSignUpCont(
                 modifier = Modifier
                     .padding(10.dp)
                     .height(70.dp),
+                maxLines = 1,
+                singleLine = true,
+//                isError = isZipValid.isZipValid,
                 label = {
                     Text(
                         text = stringResource(R.string.zip),
@@ -137,7 +149,9 @@ fun ArtistSignUpCont(
         Spacer(modifier = Modifier.padding(20.dp))
         Row(
             horizontalArrangement = Arrangement.SpaceEvenly,
-            modifier = Modifier.padding(top = 15.dp).fillMaxWidth()
+            modifier = Modifier
+                .padding(top = 15.dp)
+                .fillMaxWidth()
         ) {
             Image(
                 painter = painterResource(id = R.drawable.facebook_removebg_preview),
@@ -176,7 +190,9 @@ fun ArtistSignUpCont(
                 artistsSignUpViewModel.setArtistContSignupDetails(artistCont)
                 navController.navigate(Screen.ArtistHome.route) },
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
-            modifier = Modifier.align(Alignment.CenterHorizontally)
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            enabled = mCountry.isNotBlank() && mCity.isNotBlank()
+                    && mZip.isNotBlank()
         ) {
             Text(
                 text = stringResource(R.string.finish),

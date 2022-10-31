@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -113,6 +114,8 @@ fun ProducersHome(navController: NavController){
                     )
                 )
             , fontFamily = helveticaFont)
+
+
         }
     }
 }
@@ -150,7 +153,7 @@ fun Heading(navController: NavController) {
 fun Explore(explored: List<ExploreItems>, fontFamily: FontFamily){
     Column() {
         Text(
-            text = stringResource(R.string.collection_beats),
+            text = stringResource(R.string.selectionOfSounds),
             color = Color.White,
             fontSize = 22.sp,
             fontFamily=fontFamily,
@@ -222,7 +225,7 @@ fun EditorView(editorItem: EditorsItems,fontFamily: FontFamily) {
         modifier = Modifier
             .fillMaxSize()
             .padding(10.dp)
-            .background(color.value,shape= RoundedCornerShape(10.dp))
+            .background(color.value, shape = RoundedCornerShape(10.dp))
             .size(80.dp)
     ) {
         Text(
@@ -235,8 +238,6 @@ fun EditorView(editorItem: EditorsItems,fontFamily: FontFamily) {
         )
     }
 }
-
-
 
 
 @ExperimentalFoundationApi
@@ -269,7 +270,7 @@ fun InstrumentalView(modifier:Modifier=Modifier,
         modifier = modifier
             .fillMaxSize()
             .padding(10.dp)
-            .background(color.value,shape = RoundedCornerShape(10.dp))
+            .background(color.value, shape = RoundedCornerShape(10.dp))
             .size(80.dp)
     ) {
         Text(
@@ -282,6 +283,7 @@ fun InstrumentalView(modifier:Modifier=Modifier,
         )
     }
 }
+
 
 
 @ExperimentalFoundationApi

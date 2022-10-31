@@ -65,7 +65,8 @@
     <string name="notifications">Notifications</string>
     <string name="choose_notifications">Choose which notifications to receive.</string>
     <string name="about">About</string>
-    <string name="version">Version 1.0.00(Beta)</string>
+    <string name="version">Version</string>
+    <string name="versionType">1.0.00(Beta)</string>
     <string name="library">Library</string>
     <string name="youre_an_artist">You are an ARTIST</string>
     <string name="whats_your_producer_details">What\'s your producer details?</string>
@@ -78,4 +79,18 @@
     <string name="preview">Preview</string>
     <string name="recentActivity">View Recent Activity</string>
     <string name="withoutLogin">Continue without Login</string>
+    <string name="zhino">Dj Zhino</string>
+    <string name="follow">Follow</string>
+    <string name="number">50.3K</string>
+    <string name="followers">Followers</string>
+    <string name="tracks">Tracks</string>
+    <string name="plays">Plays</string>
+    <string name="contacts">Contacts</string>
+    <string name="emailEg">janedoe@gmail.com</string>
+    <string name="selectionOfSounds">Check out selection of sounds from other producers</string>
+    <string name="submitInstrumentals">Want to submit beats, sounds and instrumentals?</string>
+    <string name="twitter">Twitter</string>
+    <string name="password_requirement_characters">At least 8 characters</string>
+    <string name="password_requirement_capital">At least 1 upper-case letter</string>
+    <string name="password_requirement_digit">At least 1 digit</string>
 </resources>

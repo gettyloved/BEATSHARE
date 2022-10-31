@@ -4,6 +4,7 @@ package com.beatshare.beatshare.login
 
 
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -65,7 +66,13 @@ fun ArtistData(
     var mConfirmPassword by remember{ mutableStateOf("") }
     var isPasswordVisible by remember{ mutableStateOf(false) }
     var isConfirmPasswordVisible by remember{ mutableStateOf(false) }
-    var isError by remember{ mutableStateOf(false) }
+    var isConfirmPasswordError by remember { mutableStateOf(false) }
+    val isArtistSignUpDataValid by artistsSignUpViewModel.artistsSignUpDataValid.collectAsState()
+    val context = LocalContext.current
+
+    LaunchedEffect(mConfirmPassword,mPassword){
+        isConfirmPasswordError = mPassword.contentEquals(mConfirmPassword)
+    }
 
     Column(
         verticalArrangement = Arrangement.SpaceEvenly,
@@ -106,9 +113,12 @@ fun ArtistData(
                     modifier = Modifier.padding(5.dp)
                 )
             },
+            isError = !isArtistSignUpDataValid.isFirstNameValid,
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
         )
+        HelperText(text="should be at least 8 characters")
+
 
         TextField(
             value = mLastNameText,
@@ -118,6 +128,7 @@ fun ArtistData(
                 unfocusedIndicatorColor = Color.White,
                 textColor = Color.White
             ),
+            isError = !isArtistSignUpDataValid.isLastNameValid,
             maxLines = 1,
             label = {
                 Text(
@@ -128,6 +139,7 @@ fun ArtistData(
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
         )
+        HelperText(text="should be at least 8 characters")
 
         TextField(
             value = mUserNameText,
@@ -144,9 +156,11 @@ fun ArtistData(
                     modifier = Modifier.padding(5.dp),
                     color = Color.White
                 )},
+            isError = !isArtistSignUpDataValid.isUserNameValid,
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
         )
+        HelperText(text="Should be at least 8 characters")
 
         TextField(
             value = mEmailText,
@@ -163,9 +177,12 @@ fun ArtistData(
                     color = Color.White,
                     modifier = Modifier.padding(5.dp)
                 )},
+            isError = !isArtistSignUpDataValid.isEmailValid,
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
         )
+        HelperText(text="should be a valid email address eg. JohnDoe@gmail.com")
+
 
         TextField(
             value = mPassword,
@@ -175,6 +192,7 @@ fun ArtistData(
                 unfocusedIndicatorColor = Color.White,
                 textColor = Color.White
             ),
+            isError = !isArtistSignUpDataValid.isPasswordValid,
             singleLine = true,
             label = {
                 Text(
@@ -193,6 +211,8 @@ fun ArtistData(
                 }
             }
         )
+        HelperText(text="should be at least 8 characters, and should contain 1 special character, 2 lower case " +
+                "and 2 upper case letters and number")
 
         TextField(
             value = mConfirmPassword,
@@ -220,23 +240,25 @@ fun ArtistData(
                     )
                 }
             },
-            isError = isError
+            isError = isConfirmPasswordError
         )
-        if(mPassword != mConfirmPassword){
-            isError = true
-            Text(text = "Required", color = Color.White)
-        }
+        HelperText(text = "should match with your password")
+
 
         Button(
             onClick = {
-                val artistSignupData = ArtistSignupData(mFirstNameText,mLastNameText,mUserNameText,mEmailText)
+                val artistSignupData = ArtistSignupData(mFirstNameText,mLastNameText,mUserNameText,mEmailText,mPassword)
                 artistsSignUpViewModel.setArtistSignUpDetails(artistSignupData)
-                navController.navigate(route = Screen.ArtistSignUpCont.route)
-                
+                if (artistsSignUpViewModel.validateUserCredentials()) navController.navigate(route = Screen.ArtistSignUpCont.route)
+                else{
+                    Toast.makeText(context,"Ensure your credentials are valid",Toast.LENGTH_LONG).show()
+                }
+
             },
             enabled = mFirstNameText.isNotBlank() && mLastNameText.isNotBlank()
                     && mEmailText.isNotBlank() && mUserNameText.isNotBlank()
-                    && mPassword.isNotBlank() && mConfirmPassword.isNotBlank(),
+                    && mPassword.isNotBlank() && mConfirmPassword.isNotBlank() && mPassword.contentEquals
+                (mConfirmPassword),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
@@ -296,7 +318,11 @@ fun ArtistData(
 }
 
 
-
+@Composable
+private fun ColumnScope.HelperText(modifier:Modifier=Modifier,text:String){
+    Spacer(Modifier.height(5.dp))
+    Text(modifier=modifier.align(Alignment.Start), text = text, color = Color.White)
+}
 
 @Preview(showBackground = true)
 @Composable
@@ -305,5 +331,3 @@ fun ArtSignPreview() {
         ArtistSignUp(navController = rememberNavController(), artistsSignUpViewModel = ArtistsSignUpViewModel())
     }
 }
-
-

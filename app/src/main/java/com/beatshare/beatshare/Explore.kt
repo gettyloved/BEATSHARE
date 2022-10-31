@@ -25,65 +25,71 @@ import com.beatshare.beatshare.ui.theme.BeatshareTheme
 
 @Composable
 fun Explore(){
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black)
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(), 
-            horizontalArrangement = Arrangement.SpaceBetween
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(10.dp)
         ) {
-            Text(
-                text = stringResource(R.string.recentReleases),
-                fontSize = 20.sp,
-                color = Color.White,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(start = 10.dp)
-            )
-            Image(
-                painter = painterResource(id = R.drawable.ic_baseline_keyboard_arrow_right_24),
-                contentDescription = null)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = stringResource(R.string.recentReleases),
+                    fontSize = 20.sp,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(start = 10.dp)
+                )
+                Image(
+                    painter = painterResource(id = R.drawable.ic_baseline_keyboard_arrow_right_24),
+                    contentDescription = null)
+            }
+            Released(release = listOf(
+                ReleasesItems("Afro Beats",R.color.blue),
+                ReleasesItems("Amapiano vibes",R.color.wineRed),
+                ReleasesItems("Rhumba",R.color.green),
+                ReleasesItems("Hip Hop",R.color.yellow),
+                ReleasesItems("Blues",R.color.orange)
+            ))
+            Tracks(trackItems = listOf(
+                TrackItems(
+                    R.color.wineRed,
+                    "Sound of Sahara",
+                    "$5.00"
+                ),
+                TrackItems(
+                    R.color.blue,
+                    "Sound of Sahara",
+                    "$5.00"
+                ),
+                TrackItems(
+                    R.color.yellow,
+                    "Sound of Sahara",
+                    "$5.00"
+                ),
+                TrackItems(
+                    R.color.pink,
+                    "Sound of Sahara",
+                    "$5.00"
+                ),
+                TrackItems(
+                    R.color.orange,
+                    "Sound of Sahara",
+                    "$5.00"
+                ),
+                TrackItems(
+                    R.color.green,
+                    "Sound of Sahara",
+                    "$5.00"
+                ),
+            ))
         }
-        Released(release = listOf(
-            ReleasesItems("Afro Beats",R.color.blue),
-            ReleasesItems("Amapiano vibes",R.color.wineRed),
-            ReleasesItems("Rhumba",R.color.green),
-            ReleasesItems("Hip Hop",R.color.yellow),
-            ReleasesItems("Blues",R.color.orange)
-        ))
-        Tracks(trackItems = listOf(
-            TrackItems(
-                R.color.wineRed,
-                "Sound of Sahara",
-                "$5.00"
-            ),
-            TrackItems(
-                R.color.blue,
-                "Sound of Sahara",
-                "$5.00"
-            ),
-            TrackItems(
-                R.color.yellow,
-                "Sound of Sahara",
-                "$5.00"
-            ),
-            TrackItems(
-                R.color.pink,
-                "Sound of Sahara",
-                "$5.00"
-            ),
-            TrackItems(
-                R.color.orange,
-                "Sound of Sahara",
-                "$5.00"
-            ),
-            TrackItems(
-                R.color.green,
-                "Sound of Sahara",
-                "$5.00"
-            ),
-        ))
     }
 }
 
@@ -131,7 +137,6 @@ fun Releases(releasesItems: ReleasesItems) {
 fun Tracks(trackItems: List<TrackItems>) {
 
     LazyColumn(
-        contentPadding = PaddingValues(10.dp),
         modifier = Modifier.fillMaxWidth()
     ){
         item {  Text(
@@ -154,7 +159,7 @@ fun Tracks(trackItems: List<TrackItems>) {
 @Composable
 fun TrackCard(trackItems: TrackItems) {
     Row(
-        horizontalArrangement = Arrangement.SpaceEvenly,
+        horizontalArrangement = Arrangement.SpaceAround,
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
     ) {

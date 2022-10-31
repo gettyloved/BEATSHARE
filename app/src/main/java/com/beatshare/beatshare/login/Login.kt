@@ -1,14 +1,17 @@
+
 package com.beatshare.beatshare.login
-
-
 //Login Page for both criteria of users.
 // Login button has to check whether the user is an artist, producer or guest
 
+import android.util.Patterns
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,19 +21,22 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
+import com.beatshare.beatshare.ArtistsSignUpViewModel
 import com.beatshare.beatshare.R
 import com.beatshare.beatshare.Screen
-import com.beatshare.beatshare.ui.theme.BeatshareTheme
 
 
 @Composable
-fun LogIn(navController:NavHostController){
+fun LogIn(
+    navController:NavHostController,
+    artistsSignUpViewModel: ArtistsSignUpViewModel
+){
     Box(modifier = Modifier
         .fillMaxSize()
         .background(Color.Black)) {
@@ -40,7 +46,10 @@ fun LogIn(navController:NavHostController){
                 .padding(15.dp)
         ) {
             LogoPage()
-            LogPage(navController = navController)
+            LogPage(
+                navController = navController,
+                artistsSignUpViewModel = artistsSignUpViewModel
+            )
         }
     }
 
@@ -78,7 +87,8 @@ fun LogoPage() {
 
 @Composable
 fun LogPage(
-    navController: NavController
+    navController: NavController,
+    artistsSignUpViewModel: ArtistsSignUpViewModel
 ) {
     Column(
         modifier = Modifier
@@ -87,11 +97,20 @@ fun LogPage(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        var valueEntered by remember{ mutableStateOf("")}
+        var emailEntered by remember{ mutableStateOf("")}
         var passwordEntered by remember{ mutableStateOf("")}
+        var isEmailValid by remember{ mutableStateOf(true) }
+        var isPasswordValid by remember{ mutableStateOf(true) }
+        var isPasswordVisible by remember{ mutableStateOf(false) }
+
+        LaunchedEffect(passwordEntered,emailEntered){
+            isEmailValid = Patterns.EMAIL_ADDRESS.matcher(emailEntered).matches()
+            isPasswordValid = passwordEntered.length>8 && passwordEntered.isNotEmpty() && passwordEntered.isNotBlank()
+        }
+
 
         TextField(
-            value = valueEntered,
+            value = emailEntered,
             modifier = Modifier
                 .scale(0.9f, 1.3f)
                 .padding(30.dp),
@@ -102,6 +121,7 @@ fun LogPage(
                 textColor = Color.White
             ),
             maxLines = 1,
+            isError = isEmailValid,
             leadingIcon = {
                 Icon(
                     painter = painterResource(id = R.drawable.ic_baseline_person_24),
@@ -109,7 +129,7 @@ fun LogPage(
                     contentDescription = null
                 )},
 
-            onValueChange = {valueEntered = it},
+            onValueChange = {emailEntered = it},
             label = {
                 Text(
                     text = stringResource(R.string.userName),
@@ -119,8 +139,9 @@ fun LogPage(
             }
         )
 
-        TextField(
-            value = passwordEntered,
+        TextField(onValueChange = {value:String->
+            passwordEntered=value
+        },value=passwordEntered,
             modifier = Modifier
                 .scale(0.9f, 1.3f)
                 .padding(30.dp),
@@ -129,6 +150,23 @@ fun LogPage(
                 unfocusedIndicatorColor = Color.White,
                 textColor = Color.White
             ),
+            trailingIcon = {
+                IconButton(onClick = { isPasswordVisible =!isPasswordVisible }) {
+                    Icon(
+                        imageVector = if(isPasswordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
+                        contentDescription = null
+                    )
+                }
+            },
+            visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+            label={
+                Text(
+                    text = stringResource(R.string.password),
+                    fontSize = 20.sp,
+                    color = Color.White
+                )
+            },
+            isError = isPasswordValid,
             maxLines = 1,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             leadingIcon = {
@@ -138,15 +176,8 @@ fun LogPage(
                     contentDescription = null
                 )},
 
-            onValueChange = {passwordEntered = it},
-            label = {
-                Text(
-                    text = stringResource(R.string.password),
-                    fontSize = 20.sp,
-                    color = Color.White
-                )
-            }
-        )
+
+            )
 
         Button(
             onClick = {
@@ -164,6 +195,7 @@ fun LogPage(
             )
         }
 
+        
         Button(
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
             modifier = Modifier.padding(top = 10.dp, bottom = 30.dp),
@@ -203,26 +235,5 @@ fun LogPage(
                 )
             }
         }
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@Preview(showBackground = true)
-@Composable
-fun LoginPreview() {
-    BeatshareTheme {
-        LogIn(navController = rememberNavController())
     }
 }

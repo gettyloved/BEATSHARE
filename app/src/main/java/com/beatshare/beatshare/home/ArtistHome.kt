@@ -31,9 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.beatshare.beatshare.EditorsItems
-import com.beatshare.beatshare.ExploreItems
-import com.beatshare.beatshare.Galore
+import com.beatshare.beatshare.*
 import com.beatshare.beatshare.R
 import com.beatshare.beatshare.ui.theme.BeatshareTheme
 
@@ -50,7 +48,7 @@ fun ArtistsHome(navController: NavController){
             modifier = Modifier.fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ){
-            header()
+            header(navController)
             Aexplore(explored = listOf(
                 ExploreItems(
                     stringResource(R.string.rockBeats),
@@ -114,7 +112,7 @@ fun ArtistsHome(navController: NavController){
 
 
 @Composable
-fun header() {
+fun header(navController: NavController) {
     Row(
         modifier = Modifier
             .padding(20.dp)
@@ -127,8 +125,10 @@ fun header() {
             fontSize = 50.sp,
             fontWeight = FontWeight.ExtraBold
         )
-        IconButton(onClick = {  }) {
-            Icon(
+        IconButton(onClick = {
+            navController.navigate(Screen.Settings.route)
+        }) {
+            Image(
                 painter = painterResource(id = R.drawable.person1),
                 contentDescription = null,
                 modifier = Modifier

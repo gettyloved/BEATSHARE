@@ -26,7 +26,7 @@ fun MainContent(
         startDestination = Screen.LogIn.route
     ){
         composable(route = Screen.LogIn.route){
-            LogIn(navController = navController)
+            LogIn(navController = navController,artistsSignUpViewModel = artistsSignUpViewModel)
         }
         composable(route = Screen.BeatsProducer.route){
             BeatsProducer(navController = navController)
