@@ -11,6 +11,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -25,18 +26,29 @@ import com.beatshare.beatshare.ui.theme.BeatshareTheme
 
 @Composable
 fun SignUpCont(navController: NavController){
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
-            .padding(start = 50.dp, end = 30.dp)
     ) {
-        Address()
-        Spacer(modifier = Modifier.padding(100.dp))
-        SocialAccounts()
-        Spacer(modifier = Modifier.padding(50.dp))
-        Buttons(navController = navController)
+        Image(
+            painter = painterResource(id = R.drawable.box),
+            contentDescription = null,
+            contentScale = ContentScale.FillBounds,
+            modifier = Modifier.fillMaxSize()
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(20.dp)
+        ) {
+            Address()
+            Spacer(modifier = Modifier.padding(60.dp))
+            SocialAccounts()
+            Spacer(modifier = Modifier.padding(50.dp))
+            Buttons(navController = navController)
+        }
     }
+
 }
 
 @Composable
@@ -75,12 +87,12 @@ fun Address(){
                 Text(
                     text = stringResource(R.string.aliasName),
                     color = Color.White,
-                    fontSize = 25.sp,
+                    fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
                 )
             }
         )
-        Spacer(modifier = Modifier.padding(20.dp))
+        Spacer(modifier = Modifier.padding(10.dp))
         TextField(
             value = pType,
             onValueChange = {pType = it},
@@ -94,7 +106,7 @@ fun Address(){
             label = {
                 Text(
                     text = stringResource(R.string.type_of_music_producer),
-                    fontSize = 25.sp,
+                    fontSize = 20.sp,
                     color = Color.White,
                     fontWeight = FontWeight.Bold
                 )

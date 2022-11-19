@@ -11,11 +11,18 @@ class ArtistsSignUpViewModel: ViewModel() {
     private val _artistSignupData = MutableStateFlow<ArtistSignupData>(ArtistSignupData.EMPTY)
     private val currentSignUpData:ArtistSignupData
         get() = _artistSignupData.value
+
     private val _artistsSignupContData = MutableStateFlow(ArtistSignupContData.EMPTY)
+    private val currentSignUpContData:ArtistSignupContData
+        get() = _artistsSignupContData.value
 
     private val _artistsSignUpDataValid = MutableStateFlow(ArtistsSignUpDataValid.EMPTY)
     val artistsSignUpDataValid:StateFlow<ArtistsSignUpDataValid>
         get() = _artistsSignUpDataValid
+
+    private val _artistsSignUpContDataValid = MutableStateFlow(ArtistsSignUpContDataValid.EMPTY)
+    val artistsSignUpContDataValid:StateFlow<ArtistsSignUpContDataValid>
+        get() = _artistsSignUpContDataValid
 
     //    STATEFLOW
     val artistSignupData : StateFlow<ArtistSignupData> get() =_artistSignupData
@@ -50,5 +57,16 @@ class ArtistsSignUpViewModel: ViewModel() {
                 isEmailValid = isEmailValid, isUserNameValid = isUsernameValid, isPasswordValid = isPasswordValid)
         }
         return isEmailValid && isFirstNameValid && isUsernameValid && isLastNameValid && isPasswordValid
+    }
+    fun validateUserCredentialsCont():Boolean{
+
+        val isCountryValid = currentSignUpContData.country.isNotEmpty() && currentSignUpContData.country.length>4
+        val isCityValid =currentSignUpContData.city.isNotEmpty() && currentSignUpContData.city.length>4
+        val isZipValid =currentSignUpContData.zip.isNotEmpty() && currentSignUpContData.zip.length>4
+
+        _artistsSignUpContDataValid.update {
+            it.copy(isCityValid,isCountryValid,isZipValid)
+        }
+        return isCityValid && isCountryValid && isZipValid
     }
 }

@@ -11,8 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,58 +28,73 @@ import com.beatshare.beatshare.ui.theme.BeatshareTheme
 
 @Composable
 fun PasswordReset(navController: NavController){
-    Column(
+    val helveticaFont = FontFamily(Font(R.font.helvetica))
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
-            .padding(40.dp)
     ) {
         Image(
-            painter = painterResource(id = R.drawable.logo), 
-            contentDescription = "logo",
-            modifier = Modifier.size(100.dp)
+            painter = painterResource(id = R.drawable.boxblack),
+            contentDescription = null,
+            contentScale = ContentScale.FillBounds,
+            modifier = Modifier.fillMaxSize()
         )
-        Spacer(modifier = Modifier.padding(20.dp))
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.ic_baseline_check_circle_outline_24),
-                contentDescription = "success",
-                modifier = Modifier.size(100.dp),
-                tint = Color.White
-            )
-        }
-        Spacer(modifier = Modifier.padding(20.dp))
-        Text(
-            text = "Password \nReset \nSuccessful",
-            fontSize = 30.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.White
-        )
-        Spacer(modifier = Modifier.padding(20.dp))
-        Text(
-            text = "You have successfully reset your password. \nPlease login with your new password",
-            color = Color.White,
-            fontSize = 22.sp,
-            fontWeight = FontWeight.Light
-        )
-        Spacer(modifier = Modifier.padding(20.dp))
-        Button(
-            onClick = { navController.navigate(Screen.LogIn.route) },
+        Column(
             modifier = Modifier
-                .fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(Color.White)
+                .fillMaxSize()
+                .padding(40.dp)
         ) {
-            Text(
-                text = stringResource(id = R.string.next),
-                fontWeight = FontWeight.Bold,
-                fontSize = 25.sp
+            Image(
+                painter = painterResource(id = R.drawable.logo),
+                contentDescription = "logo",
+                modifier = Modifier.size(100.dp)
             )
+            Spacer(modifier = Modifier.padding(20.dp))
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_baseline_check_circle_outline_24),
+                    contentDescription = "success",
+                    modifier = Modifier.size(100.dp),
+                    tint = Color.White
+                )
+            }
+            Spacer(modifier = Modifier.padding(20.dp))
+            Text(
+                text = "Password \nReset \nSuccessful",
+                fontSize = 35.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White,
+                fontFamily = helveticaFont
+            )
+            Spacer(modifier = Modifier.padding(20.dp))
+            Text(
+                text = "You have successfully reset your password. \nPlease login with your new password",
+                color = Color.White,
+                fontSize = 22.sp,
+                fontWeight = FontWeight.Light,
+                fontFamily = helveticaFont
+            )
+            Spacer(modifier = Modifier.padding(20.dp))
+            Button(
+                onClick = { navController.navigate(Screen.LogIn.route) },
+                modifier = Modifier
+                    .fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(Color.White)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.next),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 25.sp,
+                    fontFamily = helveticaFont
+                )
+            }
         }
     }
+
 }
 
 @Preview(showBackground = true)

@@ -5,6 +5,7 @@ package com.beatshare.beatshare.login
 
 
 import android.widget.Toast
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -16,9 +17,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -45,9 +49,14 @@ fun ArtistSignUp(
         modifier = Modifier
             .fillMaxSize()
     ) {
+        Image(
+            painter = painterResource(id = R.drawable.boxblack),
+            contentDescription = null,
+            contentScale = ContentScale.FillBounds,
+            modifier = Modifier.fillMaxSize()
+        )
         Column(modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Black)) {
+            .fillMaxSize()) {
             ArtistData(navController = navController, artistsSignUpViewModel = artistsSignUpViewModel)
         }
     }
@@ -69,6 +78,7 @@ fun ArtistData(
     var isConfirmPasswordError by remember { mutableStateOf(false) }
     val isArtistSignUpDataValid by artistsSignUpViewModel.artistsSignUpDataValid.collectAsState()
     val context = LocalContext.current
+    val helveticaFont = FontFamily(Font(R.font.helvetica))
 
     LaunchedEffect(mConfirmPassword,mPassword){
         isConfirmPasswordError = mPassword.contentEquals(mConfirmPassword)
@@ -79,21 +89,23 @@ fun ArtistData(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .padding(start = 50.dp)
+            .padding(20.dp)
     ) {
 
         Text(
             text = stringResource(R.string.signUp),
             fontSize = 30.sp,
             fontWeight = FontWeight.ExtraBold,
-            color = Color.White
+            color = Color.White,
+            fontFamily = helveticaFont
         )
 
         Text(
             text = stringResource(R.string.getstarted),
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
-            color = Color.White
+            color = Color.White,
+            fontFamily = helveticaFont
         )
 
 
@@ -110,7 +122,9 @@ fun ArtistData(
                 Text(
                     text = stringResource(R.string.first_name),
                     color = Color.White,
-                    modifier = Modifier.padding(5.dp)
+                    modifier = Modifier.padding(5.dp),
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = helveticaFont
                 )
             },
             isError = !isArtistSignUpDataValid.isFirstNameValid,
@@ -134,7 +148,9 @@ fun ArtistData(
                 Text(
                     text = stringResource(R.string.last_name),
                     color = Color.White,
-                    modifier = Modifier.padding(5.dp)
+                    modifier = Modifier.padding(5.dp),
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = helveticaFont
                 )},
             singleLine = true,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
@@ -154,7 +170,9 @@ fun ArtistData(
                 Text(
                     text = stringResource(R.string.userName),
                     modifier = Modifier.padding(5.dp),
-                    color = Color.White
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = helveticaFont
                 )},
             isError = !isArtistSignUpDataValid.isUserNameValid,
             singleLine = true,
@@ -175,7 +193,9 @@ fun ArtistData(
                 Text(
                     text = stringResource(R.string.email_address),
                     color = Color.White,
-                    modifier = Modifier.padding(5.dp)
+                    modifier = Modifier.padding(5.dp),
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = helveticaFont
                 )},
             isError = !isArtistSignUpDataValid.isEmailValid,
             singleLine = true,
@@ -198,7 +218,9 @@ fun ArtistData(
                 Text(
                     text = stringResource(R.string.password),
                     color = Color.White,
-                    modifier = Modifier.padding(5.dp)
+                    modifier = Modifier.padding(5.dp),
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = helveticaFont
                 )},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
@@ -211,8 +233,8 @@ fun ArtistData(
                 }
             }
         )
-        HelperText(text="should be at least 8 characters, and should contain 1 special character, 2 lower case " +
-                "and 2 upper case letters and number")
+        HelperText(text="Should be at least 8 characters, and should contain 2 special character, 2 lower case " +
+                "and 2 upper case letters and 2 numbers")
 
         TextField(
             value = mConfirmPassword,
@@ -227,7 +249,9 @@ fun ArtistData(
                 Text(
                     text = stringResource(R.string.confirm_password),
                     color = Color.White,
-                    modifier = Modifier.padding(5.dp)
+                    modifier = Modifier.padding(5.dp),
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = helveticaFont
                 )},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             visualTransformation = if(isConfirmPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
@@ -239,8 +263,7 @@ fun ArtistData(
                         contentDescription = null
                     )
                 }
-            },
-            isError = isConfirmPasswordError
+            }
         )
         HelperText(text = "should match with your password")
 
@@ -262,13 +285,14 @@ fun ArtistData(
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .padding(start = 30.dp,end = 30.dp, top = 10.dp, bottom = 10.dp)
+                .padding(start = 30.dp, end = 30.dp, top = 10.dp, bottom = 10.dp)
         ) {
             Text(
                 text = stringResource(R.string.next),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black
+                color = Color.Black,
+                fontFamily = helveticaFont
             )
             Icon(
                 painter = painterResource(id = R.drawable.ic_baseline_arrow_forward_24),
@@ -286,32 +310,27 @@ fun ArtistData(
 //
 //            }
         }
-        val checkedState = remember{ mutableStateOf(true)}
-        Row(verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start,
-            modifier=Modifier.fillMaxWidth()
-                .align(Alignment.Start)) {
-            Checkbox(
-                checked = false,
-                onCheckedChange = { checkedState.value = it },
-                colors = CheckboxDefaults.colors(
-                    uncheckedColor = Color.White,
-                    checkmarkColor = Color.White
-                )
-            )
-            Text(text = stringResource(R.string.agree_with),
-                fontSize = 18.sp,color = Color.White)
-            TextButton(onClick = { }) {
-                Text(text = stringResource(R.string.terms_conditions),
-                    fontSize = 18.sp,color = Color.White,
-                    modifier = Modifier.fillMaxWidth())
-            }
 
-        }
-        Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
-            Text(text = stringResource(R.string.anAccount), fontSize = 20.sp,color = Color.White)
-            TextButton(onClick = { navController.navigate(Screen.LogIn.route) }) {
-                Text(text = stringResource(R.string.login), fontSize = 20.sp,color = Color.White)
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(
+                text = stringResource(R.string.anAccount),
+                fontSize = 15.sp,
+                color = Color.White
+            )
+
+            TextButton(
+                onClick = { navController.navigate(Screen.LogIn.route) }
+            ) {
+                Text(
+                    text = stringResource(R.string.login),
+                    fontSize = 15.sp,
+                    color = Color.White,
+                    fontFamily = helveticaFont
+                )
             }
         }
     }
@@ -321,7 +340,12 @@ fun ArtistData(
 @Composable
 private fun ColumnScope.HelperText(modifier:Modifier=Modifier,text:String){
     Spacer(Modifier.height(5.dp))
-    Text(modifier=modifier.align(Alignment.Start), text = text, color = Color.White)
+    Text(
+        modifier=modifier.align(Alignment.Start),
+        text = text,
+        color = Color.White,
+        fontSize = 10.sp
+    )
 }
 
 @Preview(showBackground = true)

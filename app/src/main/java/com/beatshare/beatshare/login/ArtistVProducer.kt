@@ -4,6 +4,7 @@ package com.beatshare.beatshare.login
 //First time Starter page for Artists and Producers signing up
 
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -13,6 +14,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -27,13 +30,23 @@ import com.beatshare.beatshare.ui.theme.BeatshareTheme
 
 @Composable
 fun ArtistVProducer(navController: NavController){
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-
     ) {
-        FirstPart()
-        ArtistAndProducer(navController = navController)
+        Image(
+            painter = painterResource(id = R.drawable.boxwhite),
+            contentDescription = null,
+            contentScale = ContentScale.FillBounds,
+            modifier = Modifier.fillMaxSize()
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+        ) {
+            FirstPart()
+            ArtistAndProducer(navController = navController)
+        }
     }
 }
 
@@ -44,7 +57,7 @@ fun FirstPart(){
         .padding(start = 40.dp, top = 40.dp)) {
         Text(
             text = stringResource(R.string.beforeWeStart),
-            fontSize = 28.sp,
+            fontSize = 35.sp,
             fontWeight = FontWeight.Bold
         )
         Text(
@@ -52,7 +65,7 @@ fun FirstPart(){
             fontSize = 22.sp,
             modifier = Modifier.padding(end = 20.dp,top = 30.dp)
         )
-        Spacer(modifier = Modifier.padding(20.dp))
+        Spacer(modifier = Modifier.padding(30.dp))
     }
 }
 

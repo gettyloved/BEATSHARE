@@ -14,6 +14,8 @@ import com.beatshare.beatshare.profile.Library
 import com.beatshare.beatshare.profile.ProducerProfile
 import com.beatshare.beatshare.sharedPages.Search
 import com.beatshare.beatshare.sharedPages.Settings
+import com.beatshare.beatshare.welcome.SplashScreen
+import com.beatshare.beatshare.welcome.Welcome
 
 @ExperimentalFoundationApi
 @Composable
@@ -23,7 +25,7 @@ fun MainContent(
 ){
     NavHost(
         navController = navController,
-        startDestination = Screen.LogIn.route
+        startDestination = Screen.SplashScreen.route
     ){
         composable(route = Screen.LogIn.route){
             LogIn(navController = navController,artistsSignUpViewModel = artistsSignUpViewModel)
@@ -80,6 +82,12 @@ fun MainContent(
         }
         composable(route = Screen.Settings.route){
             Settings(navController = navController)
+        }
+        composable(route = Screen.WelcomePage.route){
+            Welcome(navController = navController)
+        }
+        composable(route = Screen.SplashScreen.route){
+            SplashScreen(navController = navController)
         }
     }
 }

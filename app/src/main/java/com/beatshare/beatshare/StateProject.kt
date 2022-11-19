@@ -17,8 +17,9 @@ data class ArtistSignupData(
 }
 
 @Immutable
-data class ArtistsSignUpDataValid(val isFirstNameValid:Boolean, val isLastNameValid:Boolean,
-                                  val isUserNameValid:Boolean,val isEmailValid:Boolean, val isPasswordValid:Boolean){
+data class ArtistsSignUpDataValid(
+    val isFirstNameValid:Boolean, val isLastNameValid:Boolean,
+    val isUserNameValid:Boolean,val isEmailValid:Boolean, val isPasswordValid:Boolean){
     companion object{
         val EMPTY = ArtistsSignUpDataValid(isFirstNameValid = true, isLastNameValid = true,isUserNameValid = true,
             isEmailValid = true, isPasswordValid = true)

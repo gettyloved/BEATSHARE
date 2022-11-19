@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -35,7 +36,6 @@ fun BeatsProducer(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
     ) {
        Column(
            modifier = Modifier
@@ -186,8 +186,9 @@ fun SoundItems(topSound: TopSounds) {
                 .height(130.dp)
                 .width(150.dp)
                 .padding(10.dp)
-                .background(color = colorResource(id = topSound.color),
-                    shape= RoundedCornerShape(10.dp)
+                .background(
+                    color = colorResource(id = topSound.color),
+                    shape = RoundedCornerShape(10.dp)
                 )
         ) {
 
@@ -240,7 +241,10 @@ fun SoundsItems(newSound: NewSound) {
                 .height(130.dp)
                 .width(150.dp)
                 .padding(10.dp)
-                .background(color = colorResource(id = newSound.color),shape=RoundedCornerShape(5.dp))
+                .background(
+                    color = colorResource(id = newSound.color),
+                    shape = RoundedCornerShape(5.dp)
+                )
         ) {
 
         }

@@ -19,4 +19,6 @@ sealed class Screen(val route:String){
     object ProducersProfile:Screen(route = "producersProfile")
     object Search:Screen(route = "search")
     object Settings:Screen(route = "settings")
+    object WelcomePage:Screen(route = "welcomePage")
+    object SplashScreen:Screen(route = "splashScreen")
 }
